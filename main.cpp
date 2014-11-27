@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -30,3 +31,8 @@ int main() {
     menu();
 }
 
+=======
+/*
+put intrutions here
+*/
+>>>>>>> origin/master
