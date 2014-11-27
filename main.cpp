@@ -36,11 +36,51 @@ int gcd(int x, int y) {
 */
 
 //created an enum type to make the menu options more readable
-enum Menu_Option {OUTPUT = 0, GETEXP = 1, SORT = 2, SORT_ANSWER = 3, SORT_OPERATOR = 4, DELETE = 5, GENERATE = 6, QUIT = 7, MENU_MAX = QUIT};
+enum Menu_Option {OUTPUT = 0, GETEXP = 1, SORT = 2, SORT_ANSWER = 3, SORT_OPERATOR = 4, DELETE = 5, GENERATE = 6, QUIT = 7, MENU_MAX = 8};
 
 //checks whether input is valid or not
 bool inputCheck(int userInput) {
     return (0 <= userInput && userInput <= MENU_MAX) ? 1 : 0; //It's a compact if/else, dude. Not magic at all.
+}
+
+void handling (Menu_Option a){
+    switch(a) {
+        case OUTPUT:
+            // Code
+        break;
+
+        case GETEXP:
+            // Code
+        break;
+
+        case SORT:
+            // Code
+        break;
+
+        case SORT_ANSWER:
+            // Code
+        break;
+
+        case SORT_OPERATOR:
+            // Code
+        break;
+
+        case DELETE:
+            // Code
+        break;
+
+        case GENERATE:
+            // Code
+        break;
+
+        case QUIT:
+            // Code
+        break;
+
+        default:
+            // Code
+        break;
+    }
 }
 
 Menu_Option menu() {
@@ -55,5 +95,7 @@ Menu_Option menu() {
 }
 
 int main() {
-    menu();
+    Menu_Option menuchoice;
+    menuchoice = menu();
+    handling (menuchoice);
 }
