@@ -12,6 +12,8 @@ Sort by operator then by answer
 #include <string.h>
 #include <time.h>
 
+
+//Custom types/////////////////////////////////////////////////////
 enum Operat {ADD, SUB, MULT, DIV};
 enum Sign {POS, NEG};
 
@@ -50,6 +52,8 @@ int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
 
+
+//Calculates value of expression when adding//////////////////////////////////////////////////////
 void addEm (Expression* exp){
     //Setting the denominator
     exp->ans.denom = exp->num1.denom * exp->num2.denom;
@@ -82,6 +86,8 @@ void addEm (Expression* exp){
     }
 }
 
+
+//Calculates value of expression when multiplying//////////////////////////////////////////////////////
 void multEm (Expression* exp){
     //Determining the value of the answer
     exp->ans.num = exp->num1.num * exp->num2.num;
@@ -112,6 +118,8 @@ void multEm (Expression* exp){
     }
 }
 
+
+//Calculates value of expression when dividing//////////////////////////////////////////////////////
 void divEm (Expression* exp){
     //Determining the value of the answer
     exp->ans.num = exp->num1.num * exp->num2.denom;
@@ -142,6 +150,8 @@ void divEm (Expression* exp){
     }
 }
 
+
+//Deciding which math stuff funtion to use//////////////////////////////////////////////////////
 void mathStuff(Expression* exp){
     switch(exp->op) {
         case ADD:
@@ -162,6 +172,7 @@ void mathStuff(Expression* exp){
     }
 }
 
+//Handling the menu options//////////////////////////////////////////////////////
 void handling (Menu_Option a){
     switch(a) {
         case OUTPUT:
@@ -202,6 +213,7 @@ void handling (Menu_Option a){
     }
 }
 
+//Menu stuff//////////////////////////////////////////////////////
 Menu_Option menu() {
     char* temp;
     int userInput = 0;
@@ -213,6 +225,8 @@ Menu_Option menu() {
     return (Menu_Option) userInput;
 }
 
+
+//Main//////////////////////////////////////////////////////
 int main() {
     Menu_Option menuchoice = menu();
     handling (menuchoice);
