@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /* INTRUCTIONS
 Add random expression
 Get expression from user
@@ -9,7 +7,6 @@ Delete expression
 Sort by operator then by answer
 */
 
->>>>>>> origin/master
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,20 +24,12 @@ struct Fraction {
 struct Expression {
        Fraction num1;
        Fraction num2;
+       Fraction ans;
        Operat op;
 };
 
 Expression exps [30];
 
-/*
-int gcd(int x, int y) {
-    return (y != 0) ? gcd(y, x % y) : x;
-}
-*/
-
-struct Fraction{
-    int n, d;
-};
 typedef struct Fraction Fraction;
 
 struct Equation{
@@ -55,6 +44,64 @@ enum Menu_Option {OUTPUT = 0, GETEXP = 1, SORT = 2, SORT_ANSWER = 3, SORT_OPERAT
 //checks whether input is valid or not
 bool inputCheck(int userInput) {
     return (0 <= userInput && userInput <= MENU_MAX) ? 1 : 0; //It's a compact if/else, dude. Not magic at all.
+}
+
+int gcd(int x, int y) {
+    return (y != 0) ? gcd(y, x % y) : x;
+}
+
+void multEm (Expression* exp){
+    //Determining the value of the answer
+    exp->ans.num = exp->num1.num * exp->num2.num;
+    exp->ans.denom = exp->num1.denom * exp->num2.denom;
+
+    //Setting the sign of the answer
+    if (exp->num1.sign == NEG && exp->num2.sign == POS){
+        exp->ans.sign = NEG;
+    }
+    else if (exp->num1.sign == POS && exp->num2.sign == NEG){
+        exp->ans.sign = NEG;
+    }
+    else {
+        exp->ans.sign = POS;
+    }
+}
+
+void divEm (Expression* exp){
+    //Determining the value of the answer
+    exp->ans.num = exp->num1.num * exp->num2.denom;
+    exp->ans.denom = exp->num1.denom * exp->num2.num;
+
+    //Setting the sign of the answer
+    if (exp->num1.sign == NEG && exp->num2.sign == POS){
+        exp->ans.sign = NEG;
+    }
+    else if (exp->num1.sign == POS && exp->num2.sign == NEG){
+        exp->ans.sign = NEG;
+    }
+    else {
+        exp->ans.sign = POS;
+    }
+}
+
+void mathStuff(Expression* exp){
+    switch(exp->op) {
+        case ADD:
+            // addEm
+        break;
+
+        case SUB:
+            // subEm
+        break;
+
+        case MULT:
+            // multEm
+        break;
+
+        case DIV:
+            // divEm
+        break;
+    }
 }
 
 void handling (Menu_Option a){
@@ -108,10 +155,7 @@ Menu_Option menu() {
     return (Menu_Option) userInput;
 }
 
-int
-
 int main() {
-    Menu_Option menuchoice;
-    menuchoice = menu();
+    Menu_Option menuchoice = menu();
     handling (menuchoice);
 }
