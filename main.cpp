@@ -53,6 +53,22 @@ int gcd(int x, int y) {
 }
 
 
+//Determining the sign/////////////////////////////////////////////
+void signFinder (Expression* exp){
+    if (exp->ans.num < 0){
+        exp->ans.num = abs(exp->ans.num);
+        exp->ans.sign = NEG;
+    }
+    else if (exp->ans.denom < 0){
+        exp->ans.denom = abs(exp->ans.denom);
+        exp->ans.sign = NEG;
+    }
+    else{
+        exp->ans.sign = POS;
+    }
+}
+
+
 //Calculates value of expression when adding//////////////////////////////////////////////////////
 void addEm (Expression* exp){
     //Setting the denominator
@@ -72,18 +88,30 @@ void addEm (Expression* exp){
         exp->ans.sign = NEG;
     }
 
-    //Determining the sign
-    if (exp->ans.num < 0){
-        exp->ans.num = abs(exp->ans.num);
+    signFinder(exp);
+}
+
+
+//Calculates value of expression when subtracting//////////////////////////////////////////////////////
+void subEm (Expression* exp){
+    //Setting the denominator
+    exp->ans.denom = exp->num1.denom * exp->num2.denom;
+    //Figuring out the numerator
+    if (exp->num1.sign == POS && exp->num1.sign == POS){
+        exp->ans.num = (exp->num1.num * exp->num2.denom) - (exp->num2.num * exp->num1.denom);
+    }
+    else if (exp->num1.sign == POS && exp->num1.sign == NEG){
+        exp->ans.num = (exp->num1.num * exp->num2.denom) + (exp->num2.num * exp->num1.denom);
+    }
+    else if (exp->num1.sign == NEG && exp->num1.sign == POS){
+        exp->ans.num = (exp->num2.num * exp->num2.denom) + (exp->num1.num * exp->num1.denom);
+    }
+    else if (exp->num1.sign == NEG && exp->num1.sign == NEG){
+        exp->ans.num = (exp->num2.num * exp->num2.denom) - (exp->num1.num * exp->num1.denom);
         exp->ans.sign = NEG;
     }
-    else if (exp->ans.denom < 0){
-        exp->ans.denom = abs(exp->ans.denom);
-        exp->ans.sign = NEG;
-    }
-    else{
-        exp->ans.sign = POS;
-    }
+
+    signFinder(exp);
 }
 
 
@@ -104,18 +132,7 @@ void multEm (Expression* exp){
         exp->ans.sign = POS;
     }
 
-    //Determining the sign
-    if (exp->ans.num < 0){
-        exp->ans.num = abs(exp->ans.num);
-        exp->ans.sign = NEG;
-    }
-    else if (exp->ans.denom < 0){
-        exp->ans.denom = abs(exp->ans.denom);
-        exp->ans.sign = NEG;
-    }
-    else{
-        exp->ans.sign = POS;
-    }
+    signFinder(exp);
 }
 
 
@@ -136,18 +153,7 @@ void divEm (Expression* exp){
         exp->ans.sign = POS;
     }
 
-    //Determining the sign
-    if (exp->ans.num < 0){
-        exp->ans.num = abs(exp->ans.num);
-        exp->ans.sign = NEG;
-    }
-    else if (exp->ans.denom < 0){
-        exp->ans.denom = abs(exp->ans.denom);
-        exp->ans.sign = NEG;
-    }
-    else{
-        exp->ans.sign = POS;
-    }
+    signFinder(exp);
 }
 
 
