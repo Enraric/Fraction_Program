@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,6 +6,17 @@ int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
 */
+
+struct Fraction{
+    int n, d;
+};
+typedef struct Fraction Fraction;
+
+struct Equation{
+    Fraction f1, f2;
+    char operators;
+};
+typedef struct Equation Equation;
 
 //created an enum type to make the menu options more readable
 enum Menu_Option {OUTPUT = 0, GETEXP = 1, SORT = 2, SORT_ANSWER = 3, SORT_OPERATOR = 4, DELETE = 5, GENERATE = 6, QUIT = 7, MENU_MAX = QUIT};
@@ -27,12 +37,8 @@ Menu_Option menu() {
     return (Menu_Option) userInput;
 }
 
+int
+
 int main() {
     menu();
 }
-
-=======
-/*
-put intrutions here
-*/
->>>>>>> origin/master
