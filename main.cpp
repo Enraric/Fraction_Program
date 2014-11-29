@@ -44,6 +44,102 @@ int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
 
+//parsing
+
+int validInt (char string){
+if (string >= 48 && string <= 57)
+    return 1;
+else
+    return 0;
+}
+
+int validOperator (char string){
+    return ((string) == '+' || (string) == '-' || (string) == '/' || (string) == '*' );
+}
+
+int signSwap(){
+
+}
+
+int parse (char string[80]/*alternatively, keep track of the array size*/, int expNum/*which expression this is in the array of expressions*/){
+    int count, SScount, partition = 0;
+    char temp [80];
+    //attempting to handle format of ___(-36456/-456456)___operator___(-76574/-457347)___
+    //walks through array, looking for a different sentinels
+    for (int i = 0; string[i] != 0; i++)
+        switch (partition){
+        case 0:
+            if (string[i] == '(')
+                partition ++;
+        case 1:
+            //could replace these with function call
+            if (string[i] == '-')
+                exps[expNum].num1.sign == NEG;//have to change it to switch signs instead
+            partition ++;
+        case 2:
+            if (validInt (string [i])){
+                temp[SScount] = string[i];
+                SScount ++;
+            }
+            else if (string[i] == '/'){
+                exps[expNum].num1.num = atoi (temp);
+                temp[SScount] = 0;
+                partition ++;
+            }
+        case 3:
+//could replace these with function call
+            if (string[i] == '-')
+                exps[expNum].num1.sign == NEG;//have to change it to switch signs instead
+            partition ++;
+        case 4:
+            if (validInt (string[i])){
+                temp[SScount] = string[i];
+                SScount ++;
+            }
+            else if (string[i] == ')'){
+                exps[expNum].num1.denom = atoi (temp);
+                SScount = 0;
+                partition ++;
+            }
+        case 5:
+            if (string [i] == '+' || string [i] == '-' || string [i] == '/' || string [i] == '*')
+                //exps[expNum].op = string[i];  NEEDS FIXING
+                partition ++;
+        case 6:
+            if (string [i] == '(')
+                partition ++;
+        case 7:
+//could replace these with function call
+            if (string[i] == '-')
+                exps[expNum].num2.sign == NEG;//have to change it to switch signs instead
+                partition ++;
+        case 8:
+            if (validInt (string[i])){
+                temp[SScount] = string[i];
+                SScount ++;
+            }
+            else if (string[i] == '/'){
+                exps[expNum].num2.num = atoi (temp);
+                SScount = 0;
+                partition ++;
+            }
+        case 9:
+//could replace these with function call
+            if (string[i] == '-')
+                exps[expNum].num2.sign == NEG;//have to change it to switch signs instead
+                partition ++;
+        case 10:
+            if (validInt (string[i])){
+                temp[SScount] = string[i];
+                SScount ++;
+            }
+            else if (string[i] == ')'){
+                exps[expNum].num2.denom = atoi (temp);
+                SScount = 0;
+                partition ++;
+            }
+        }//end switch
+}
 
 //Determining the sign/////////////////////////////////////////////
 void signFinder (Expression* exp){
