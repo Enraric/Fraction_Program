@@ -1,10 +1,10 @@
 /* INTRUCTIONS
-Add random expression
-Get expression from user
-Sort by answer
-Output expressions with answers
-Delete expression
-Sort by operator then by answer
+Add random expression --- Swiggity Swilson
+Get expression from user --- Harrison
+Sort by answer --- Harrison
+Output expressions with answers --- Alex McMorine III
+Delete expression --- Swiggityy Swilson
+Sort by operator then by answer --- Alex McMorine III
 */
 
 #include <stdio.h>
