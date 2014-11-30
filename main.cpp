@@ -1,11 +1,12 @@
 /* INTRUCTIONS
 Add random expression --- Swiggity Swilson
-Get expression from user --- Harrison
+Get expression from user --- Harrison (I take it I don't have a "cool" name)
 Sort by answer --- Harrison
 Output expressions with answers --- Alex McMorine III
 Delete expression --- Swiggityy Swilson
 Sort by operator then by answer --- Alex McMorine III
 */
+//Harrison: Guys, can we initialize our fractions?  It would make sign swapping a helluva lot easier (specifically make sign positive)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,7 +45,7 @@ int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
 
-//parsing
+//_________________________________________________________BEGIN PARSE SECTION_______________________________________________________________
 
 int validInt (char string){
 if (string >= 48 && string <= 57)
@@ -57,26 +58,32 @@ int validOperator (char string){
     return ((string) == '+' || (string) == '-' || (string) == '/' || (string) == '*' );
 }
 
-int signSwap(){
-
+Sign signSwap(Sign sign){//The naming is strong with this one
+    if (sign == NEG)
+       sign = POS;
+    else if (sign == POS)
+         sign = NEG;
+    return sign;
 }
 
-int parse (char string[80]/*alternatively, keep track of the array size*/, int expNum/*which expression this is in the array of expressions*/){
+int parse (char string[80], int expNum){
     int count, SScount, partition = 0;
     char temp [80];
-    //attempting to handle format of ___(-36456/-456456)___operator___(-76574/-457347)___
+    //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
     for (int i = 0; string[i] != 0; i++)
         switch (partition){
         case 0:
+             //finds beginning of expression
             if (string[i] == '(')
                 partition ++;
         case 1:
-            //could replace these with function call
+             //finds a negative sign before first number, if any
             if (string[i] == '-')
-                exps[expNum].num1.sign == NEG;//have to change it to switch signs instead
+                exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
             partition ++;
         case 2:
+             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or ) 
             if (validInt (string [i])){
                 temp[SScount] = string[i];
                 SScount ++;
@@ -87,11 +94,12 @@ int parse (char string[80]/*alternatively, keep track of the array size*/, int e
                 partition ++;
             }
         case 3:
-//could replace these with function call
+             //detects negative sign of first number's denominator
             if (string[i] == '-')
-                exps[expNum].num1.sign == NEG;//have to change it to switch signs instead
+                exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
             partition ++;
         case 4:
+             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string[i])){
                 temp[SScount] = string[i];
                 SScount ++;
@@ -102,18 +110,21 @@ int parse (char string[80]/*alternatively, keep track of the array size*/, int e
                 partition ++;
             }
         case 5:
+             //Assigns operator type
             if (string [i] == '+' || string [i] == '-' || string [i] == '/' || string [i] == '*')
-                //exps[expNum].op = string[i];  NEEDS FIXING
+                //exps[expNum].op = string[i];  NEEDS FIXING (How are we storing the enum type of operator? what do we need it to do?)
                 partition ++;
         case 6:
+             //detects start of second fraction
             if (string [i] == '(')
                 partition ++;
         case 7:
-//could replace these with function call
+             //detects sign of second fraction, numerator
             if (string[i] == '-')
-                exps[expNum].num2.sign == NEG;//have to change it to switch signs instead
-                partition ++;
+                exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
+            partition ++;
         case 8:
+             ////adds ANY integer characters into a temporary string, uses atoi once reaches sentinel:      / or )
             if (validInt (string[i])){
                 temp[SScount] = string[i];
                 SScount ++;
@@ -124,11 +135,12 @@ int parse (char string[80]/*alternatively, keep track of the array size*/, int e
                 partition ++;
             }
         case 9:
-//could replace these with function call
+             //detects sign fraction 2, denom
             if (string[i] == '-')
-                exps[expNum].num2.sign == NEG;//have to change it to switch signs instead
-                partition ++;
+                exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
+            partition ++;
         case 10:
+             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string[i])){
                 temp[SScount] = string[i];
                 SScount ++;
@@ -137,9 +149,14 @@ int parse (char string[80]/*alternatively, keep track of the array size*/, int e
                 exps[expNum].num2.denom = atoi (temp);
                 SScount = 0;
                 partition ++;
+        case 11:
+             //done parsing
+             return 1;
             }
-        }//end switch
+        }
 }
+//_______________________________________________________________END PARSING SECTION__________________________________________________________
+
 
 //Determining the sign/////////////////////////////////////////////
 void signFinder (Expression* exp){
