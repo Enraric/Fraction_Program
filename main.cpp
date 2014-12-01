@@ -58,7 +58,7 @@ void randExps (){
     int numExps;
 
     do{
-        printf ("\nEnter the number of expressions you would like to enter:");
+        printf ("\nEnter the number of expressions you would like to generate: ");
         scanf ("%i", &numExps);
         if (numExps > 30 || numExps < 0){
             printf ("Invalid number.\n");
@@ -390,6 +390,7 @@ void handling (Menu_Option a){
     }
 }
 
+
 void menuPrint (){
 printf ("0)Output the expressions\n");
 printf ("1)Manually input and expression\n");
@@ -404,7 +405,19 @@ printf ("6)Quit\n");
 Menu_Option menu() {
     char temp [80];
     int userInput = 0;
+<<<<<<< HEAD
     menuPrint();
+=======
+    printf ("1)Output the expressions\n");
+    printf ("2)Manually input and expression\n");
+    printf ("3)Sort the expressions by anwser\n");
+    printf ("4)Sort the expressions by operator\n");
+    printf ("5)Delete an expression\n");
+    printf ("6)Generate expressions\n");
+    printf ("7)Quit\n");
+    menuPrint();
+
+>>>>>>> origin/master
     do {
         printf ("Input the number of your choice\n");
         scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)
