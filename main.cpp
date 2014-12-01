@@ -109,7 +109,7 @@ int parse (char string[80], int expNum){
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
     for (int i = 0; string[i] != 0; i++)
-        switch (partition){
+        switch (partition){printf ("1)Output the expressions\n")
         case 0:
              //finds beginning of expression
             if (string[i] == '(')
@@ -154,7 +154,7 @@ int parse (char string[80], int expNum){
         case 6:
              //detects start of second fraction
             if (string [i] == '(')
-                partition ++;
+                partition ++;printf ("1)Output the expressions\n")
         case 7:
              //detects sign of second fraction, numerator
             if (string[i] == '-')
@@ -202,7 +202,7 @@ char* getExp (){
      scanf ("%s", &temp);
      return temp;
 }
-
+printf ("1)Output the expressions\n")
 //__________________________________________________________________End User Input____________________________________________________________
 */
 //Determining the sign/////////////////////////////////////////////
@@ -225,7 +225,7 @@ void signFinder (Expression* exp){
 void addEm (Expression* exp){
     //Setting the denominator
     exp->ans.denom = exp->num1.denom * exp->num2.denom;
-    //Figuring out the numerator
+    //Figuring out the numeratprintf ("1)Output the expressions\n")or
     if (exp->num1.sign == POS && exp->num1.sign == POS){
         exp->ans.num = (exp->num1.num * exp->num2.denom) + (exp->num2.num * exp->num1.denom);
     }
@@ -348,10 +348,6 @@ void handling (Menu_Option a){
             // Code
         break;
 
-        case SORT:
-            // Code
-        break;
-
         case SORT_ANSWER:
             // Code
         break;
@@ -376,6 +372,17 @@ void handling (Menu_Option a){
             // Code
         break;
     }
+}
+
+void menuprint (){
+system("cls");
+printf ("1)Output the expressions\n");
+printf ("2)Manually input and expression\n");
+printf ("3)Sort the expressions by anwser\n");
+printf ("4)Sort the expressions by operator\n");
+printf ("5)Delete an expression\n");
+printf ("6)Generate expressions\n");
+printf ("7)Quit\n");
 }
 
 //Menu stuff//////////////////////////////////////////////////////
