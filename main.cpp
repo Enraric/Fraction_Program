@@ -1,8 +1,8 @@
 /* INTRUCTIONS
-Add random expression --- Swiggity Swilson
+Add random expression --- Alex McMorine III
     Done: Get expression from user --- Harrison
 Sort by answer --- Harrison
-Output expressions with answers --- Alex McMorine III
+Output expressions with answers --- Swiggity Swilson
 Delete expression --- Swiggityy Swilson
 Sort by operator then by answer --- Alex McMorine III
 */
