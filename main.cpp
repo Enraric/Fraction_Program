@@ -374,21 +374,18 @@ void handling (Menu_Option a){
     }
 }
 
-void menuprint (){
-system("cls");
-printf ("1)Output the expressions\n");
-printf ("2)Manually input and expression\n");
-printf ("3)Sort the expressions by anwser\n");
-printf ("4)Sort the expressions by operator\n");
-printf ("5)Delete an expression\n");
-printf ("6)Generate expressions\n");
-printf ("7)Quit\n");
-}
 
 //Menu stuff//////////////////////////////////////////////////////
 Menu_Option menu() {
     char* temp;
     int userInput = 0;
+    printf ("1)Output the expressions\n");
+    printf ("2)Manually input and expression\n");
+    printf ("3)Sort the expressions by anwser\n");
+    printf ("4)Sort the expressions by operator\n");
+    printf ("5)Delete an expression\n");
+    printf ("6)Generate expressions\n");
+    printf ("7)Quit\n");
     do {
         printf ("Input the number of your choice\n");
         gets (temp);
