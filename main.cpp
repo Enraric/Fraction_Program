@@ -53,7 +53,7 @@ int gcd(int x, int y) {
 //-----------------------------------------------RAND STUFF------------------------------------------------
 //-----------------------------------------------RAND STUFF------------------------------------------------
 
-void randExps (Expression* exp[], int* arrayCount){
+void randExps (){
     int numExps;
 
     do{
@@ -64,16 +64,16 @@ void randExps (Expression* exp[], int* arrayCount){
         }
     }while (numExps > 30 || numExps < 0);
 
-    *arrayCount == numExps;
+    numExp == numExps;
 
     for (int i = 0; i < numExps; i++){
-        exp[i]->num1.num == rb (0,99);
-        exp[i]->num1.denom == rb (0,99);
-        exp[i]->num1.sign == rb (0,1);
-        exp[i]->num2.num == rb (0,99);
-        exp[i]->num2.denom == rb (0,99);
-        exp[i]->num2.sign == rb (0,2);
-        exp[i]->op == rb (0,3);
+        exps[i].num1.num == rb (0,99);
+        exps[i].num1.denom == rb (0,99);
+        exps[i].num1.sign == rb (0,1);
+        exps[i].num2.num == rb (0,99);
+        exps[i].num2.denom == rb (0,99);
+        exps[i].num2.sign == rb (0,2);
+        exps[i].op == rb (0,3);
     }
 
 }
@@ -211,134 +211,132 @@ printf ("1)Output the expressions\n")
 //__________________________________________________________________End User Input____________________________________________________________
 */
 //Determining the sign/////////////////////////////////////////////
-void signFinder (Expression* exp){
-    if (exp->ans.num < 0){
-        exp->ans.num = abs(exp->ans.num);
-        exp->ans.sign = NEG;
+void signFinder (int i){
+    if (exps[i].ans.num < 0){
+        exps[i].ans.num = abs(exps[i].ans.num);
+        exps[i].ans.sign = NEG;
     }
-    else if (exp->ans.denom < 0){
-        exp->ans.denom = abs(exp->ans.denom);
-        exp->ans.sign = NEG;
+    else if (exps[i].ans.denom < 0){
+        exps[i].ans.denom = abs(exps[i].ans.denom);
+        exps[i].ans.sign = NEG;
     }
     else{
-        exp->ans.sign = POS;
+        exps[i].ans.sign = POS;
     }
 }
 
 
 //Calculates value of expression when adding//////////////////////////////////////////////////////
-void addEm (Expression* exp){
+void addEm (int i){
     //Setting the denominator
-    exp->ans.denom = exp->num1.denom * exp->num2.denom;
+    exps[i].ans.denom = exps[i].num1.denom * exps[i].num2.denom;
     //Figuring out the numeratprintf ("1)Output the expressions\n")or
-    if (exp->num1.sign == POS && exp->num1.sign == POS){
-        exp->ans.num = (exp->num1.num * exp->num2.denom) + (exp->num2.num * exp->num1.denom);
+    if (exps[i].num1.sign == POS && exps[i].num1.sign == POS){
+        exps[i].ans.num = (exps[i].num1.num * exps[i].num2.denom) + (exps[i].num2.num * exps[i].num1.denom);
     }
-    else if (exp->num1.sign == POS && exp->num1.sign == NEG){
-        exp->ans.num = (exp->num1.num * exp->num2.denom) - (exp->num2.num * exp->num1.denom);
+    else if (exps[i].num1.sign == POS && exps[i].num1.sign == NEG){
+        exps[i].ans.num = (exps[i].num1.num * exps[i].num2.denom) - (exps[i].num2.num * exps[i].num1.denom);
     }
-    else if (exp->num1.sign == NEG && exp->num1.sign == POS){
-        exp->ans.num = (exp->num2.num * exp->num2.denom) - (exp->num1.num * exp->num1.denom);
+    else if (exps[i].num1.sign == NEG && exps[i].num1.sign == POS){
+        exps[i].ans.num = (exps[i].num2.num * exps[i].num2.denom) - (exps[i].num1.num * exps[i].num1.denom);
     }
-    else if (exp->num1.sign == NEG && exp->num1.sign == NEG){
-        exp->ans.num = (exp->num2.num * exp->num2.denom) + (exp->num1.num * exp->num1.denom);
-        exp->ans.sign = NEG;
+    else if (exps[i].num1.sign == NEG && exps[i].num1.sign == NEG){
+        exps[i].ans.num = (exps[i].num2.num * exps[i].num2.denom) + (exps[i].num1.num * exps[i].num1.denom);
+        exps[i].ans.sign = NEG;
     }
-
-    signFinder(exp);
+    signFinder(i);
 }
-
+// Code
 
 //Calculates value of expression when subtracting//////////////////////////////////////////////////////
-void subEm (Expression* exp){
+void subEm (int i){
     //Setting the denominator
-    exp->ans.denom = exp->num1.denom * exp->num2.denom;
+    exps[i].ans.denom = exps[i].num1.denom * exps[i].num2.denom;
     //Figuring out the numerator
-    if (exp->num1.sign == POS && exp->num1.sign == POS){
-        exp->ans.num = (exp->num1.num * exp->num2.denom) - (exp->num2.num * exp->num1.denom);
+    if (exps[i].num1.sign == POS && exps[i].num1.sign == POS){
+        exps[i].ans.num = (exps[i].num1.num * exps[i].num2.denom) - (exps[i].num2.num * exps[i].num1.denom);
     }
-    else if (exp->num1.sign == POS && exp->num1.sign == NEG){
-        exp->ans.num = (exp->num1.num * exp->num2.denom) + (exp->num2.num * exp->num1.denom);
+    else if (exps[i].num1.sign == POS && exps[i].num1.sign == NEG){
+        exps[i].ans.num = (exps[i].num1.num * exps[i].num2.denom) + (exps[i].num2.num * exps[i].num1.denom);
     }
-    else if (exp->num1.sign == NEG && exp->num1.sign == POS){
-        exp->ans.num = (exp->num2.num * exp->num2.denom) + (exp->num1.num * exp->num1.denom);
+    else if (exps[i].num1.sign == NEG && exps[i].num1.sign == POS){
+        exps[i].ans.num = (exps[i].num2.num * exps[i].num2.denom) + (exps[i].num1.num * exps[i].num1.denom);
     }
-    else if (exp->num1.sign == NEG && exp->num1.sign == NEG){
-        exp->ans.num = (exp->num2.num * exp->num2.denom) - (exp->num1.num * exp->num1.denom);
-        exp->ans.sign = NEG;
+    else if (exps[i].num1.sign == NEG && exps[i].num1.sign == NEG){
+        exps[i].ans.num = (exps[i].num2.num * exps[i].num2.denom) - (exps[i].num1.num * exps[i].num1.denom);
+        exps[i].ans.sign = NEG;
     }
 
-    signFinder(exp);
+    signFinder(i);
 }
 
 
 //Calculates value of expression when multiplying//////////////////////////////////////////////////////
-void multEm (Expression* exp){
+void multEm (int i){
     //Determining the value of the answer
-    exp->ans.num = exp->num1.num * exp->num2.num;
-    exp->ans.denom = exp->num1.denom * exp->num2.denom;
+    exps[i].ans.num = exps[i].num1.num * exps[i].num2.num;
+    exps[i].ans.denom = exps[i].num1.denom * exps[i].num2.denom;
 
     //Setting the sign of the answer
-    if (exp->num1.sign == NEG && exp->num2.sign == POS){
-        exp->ans.sign = NEG;
+    if (exps[i].num1.sign == NEG && exps[i].num2.sign == POS){
+        exps[i].ans.sign = NEG;
     }
-    else if (exp->num1.sign == POS && exp->num2.sign == NEG){
-        exp->ans.sign = NEG;
+    else if (exps[i].num1.sign == POS && exps[i].num2.sign == NEG){
+        exps[i].ans.sign = NEG;
     }
     else {
-        exp->ans.sign = POS;
+        exps[i].ans.sign = POS;
     }
 
-    signFinder(exp);
+    signFinder(i);
 }
-
 
 //Calculates value of expression when dividing//////////////////////////////////////////////////////
-void divEm (Expression* exp){
+void divEm (int i){
     //Determining the value of the answer
-    exp->ans.num = exp->num1.num * exp->num2.denom;
-    exp->ans.denom = exp->num1.denom * exp->num2.num;
+    exps[i].ans.num = exps[i].num1.num * exps[i].num2.denom;
+    exps[i].ans.denom = exps[i].num1.denom * exps[i].num2.num;
 
     //Setting the sign of the answer
-    if (exp->num1.sign == NEG && exp->num2.sign == POS){
-        exp->ans.sign = NEG;
+    if (exps[i].num1.sign == NEG && exps[i].num2.sign == POS){
+        exps[i].ans.sign = NEG;
     }
-    else if (exp->num1.sign == POS && exp->num2.sign == NEG){
-        exp->ans.sign = NEG;
+    else if (exps[i].num1.sign == POS && exps[i].num2.sign == NEG){
+        exps[i].ans.sign = NEG;
     }
     else {
-        exp->ans.sign = POS;
+        exps[i].ans.sign = POS;
     }
 
-    signFinder(exp);
+    signFinder(i);
 }
 
-
+// Code
 //Deciding which math stuff funtion to use//////////////////////////////////////////////////////
-void mathStuff(Expression* exp){
-    switch(exp->op) {
+void mathStuff(int i){
+    switch(exps[i].op) {
         case ADD:
-            addEm(exp);
+            addEm(i);
         break;
 
         case SUB:
-            (exp);
+            subEm(i);
         break;
 
         case MULT:
-            (exp);
+            multEm(i);
         break;
 
         case DIV:
-            (exp);
+            divEm(i);
         break;
     }
 }
 
 //Because I forgot to write math stuff for functions////////////////////////////
-void mathHandler(Expression* exp[], int numExps){
-    for (int i = 0; i < numExps; i++){
-        mathStuff(exp[i]);
+void mathHandler(){
+    for (int i = 0; i < numExp; i++){
+        mathStuff(i);
     }
 }
 
@@ -366,7 +364,7 @@ void handling (Menu_Option a){
         break;
 
         case GENERATE:
-            // Code
+            randExps();
         break;
 
         case QUIT:
@@ -379,21 +377,18 @@ void handling (Menu_Option a){
     }
 }
 
-void menuprint (){
-system("cls");
-printf ("1)Output the expressions\n");
-printf ("2)Manually input and expression\n");
-printf ("3)Sort the expressions by anwser\n");
-printf ("4)Sort the expressions by operator\n");
-printf ("5)Delete an expression\n");
-printf ("6)Generate expressions\n");
-printf ("7)Quit\n");
-}
 
 //Menu stuff//////////////////////////////////////////////////////
 Menu_Option menu() {
     char* temp;
     int userInput = 0;
+    printf ("1)Output the expressions\n");
+    printf ("2)Manually input and expression\n");
+    printf ("3)Sort the expressions by anwser\n");
+    printf ("4)Sort the expressions by operator\n");
+    printf ("5)Delete an expression\n");
+    printf ("6)Generate expressions\n");
+    printf ("7)Quit\n");
     do {
         printf ("Input the number of your choice\n");
         gets (temp);
