@@ -84,6 +84,7 @@ void randExps (){
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
 int validInt (char string){
+    printf ("entered validint\n");
 if (string >= 48 && string <= 57)
     return 1;
 else
@@ -94,7 +95,7 @@ int validOperator (char string){
     return ((string) == '+' || (string) == '-' || (string) == '/' || (string) == '*' );
 }
 
-Sign signSwap(Sign sign){//The naming is strong with this one
+Sign signSwap(Sign sign){
     if (sign == NEG)
        sign = POS;
     else if (sign == POS)
@@ -103,7 +104,7 @@ Sign signSwap(Sign sign){//The naming is strong with this one
 }
 
 int parse (char string[80], int expNum){
-    printf ("entered parse");
+    printf ("entered parse\n");
     int SScount, partition = 0;
     char temp [80];
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
@@ -124,8 +125,11 @@ int parse (char string[80], int expNum){
             break;
         case 2:
              //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
+             printf ("entered case 2\n");
             if (validInt (string [i])){
+                printf ("entered if\n");
                 temp[SScount] = string[i];
+                printf ("added success\n");
                 SScount ++;
             }
             else if (string[i] == '/'){
@@ -214,7 +218,7 @@ int parse (char string[80], int expNum){
 
 //_________________________________________________________________Begin User Input___________________________________________________________
 void getExp (int numExp){
-    printf ("entered getExp");//bugcheck line
+    printf ("entered getExp\n");//bugcheck line
      char temp[80];
      printf ("Please input your expression now\n");
      scanf ("%s", &temp);
@@ -392,7 +396,7 @@ void handling (Menu_Option a){
 
 // Wilson's shitty output expn. with answer function....
 void putExpAns (int index){
-	
+
 	// it's only the first thing for now, but I want to push the thing before we leave.
 	printf ("(");
 	printf ("%c",exps[index].num1.sign);
@@ -400,7 +404,7 @@ void putExpAns (int index){
 	printf ("/");
 	printf ("%i",exps[index].num1.denom);
 	printf (")");
-	
+
 }
 
 
