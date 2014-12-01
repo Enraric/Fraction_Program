@@ -68,12 +68,12 @@ Sign signSwap(Sign sign){//The naming is strong with this one
 }
 
 int parse (char string[80], int expNum){
-    printf("%s",string);
     int count, SScount, partition = 0;
     char temp [80];
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
-    for (int i = 0; string[i] != 0; i++)
+    for (int i = 0; string[i] != 0; i++){
+        printf ("\t%i\n",partition);
         switch (partition){
         case 0:
              //finds beginning of expression
@@ -157,6 +157,7 @@ int parse (char string[80], int expNum){
              return 1;
             }
         }
+    }
 }
 //_______________________________________________________________END PARSING SECTION__________________________________________________________
 
