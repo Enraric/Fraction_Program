@@ -390,6 +390,19 @@ void handling (Menu_Option a){
     }
 }
 
+// Wilson's shitty output expn. with answer function....
+void putExpAns (int index){
+	
+	// it's only the first thing for now, but I want to push the thing before we leave.
+	printf ("(");
+	printf ("%c",exps[index].num1.sign);
+	printf ("%i",exps[index].num1.num);
+	printf ("/");
+	printf ("%i",exps[index].num1.denom);
+	printf (")");
+	
+}
+
 
 void menuPrint (){
 printf ("0)Output the expressions\n");
