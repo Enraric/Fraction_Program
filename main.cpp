@@ -33,6 +33,7 @@ struct Expression {
 };
 
 Expression exps [30];
+int numExp = 0;
 
 //created an enum type to make the menu options more readable
 enum Menu_Option {OUTPUT = 0, GETEXP = 1, SORT = 2, SORT_ANSWER = 3, SORT_OPERATOR = 4, DELETE = 5, GENERATE = 6, QUIT = 7, MENU_MAX = 8};
@@ -84,7 +85,7 @@ int parse (char string[80], int expNum){
                 exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
             partition ++;
         case 2:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or ) 
+             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string [i])){
                 temp[SScount] = string[i];
                 SScount ++;
