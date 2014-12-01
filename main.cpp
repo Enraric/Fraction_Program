@@ -15,9 +15,20 @@ Sort by operator then by answer --- Alex McMorine III
 #include <string.h>
 #include <time.h>
 #define MAX_EXP 30
+#include "iostream"
+
 
 int rb (int min, int max) {
     return rand() % (max - min + 1) + min;
+}
+
+int getNum (int min, int max){ // Thing Wilson likes to have to get a number between a min and max value. Could be useful.
+	int num = 0;
+		
+	std::cin >> num;
+	while (num< min || num > max){
+		std::cin >> num;
+	}
 }
 
 //Custom types/////////////////////////////////////////////////////
@@ -354,10 +365,13 @@ void mathHandler(){
 }
 
 // Wilson's shitty output expn. with answer function....
-void putExpAns (int index){
+void putExpAns (){	
+	int index = 0;
 	
+	printf ("Input which # expression you would like to output (0-29). \n");
+	getNum (0,29);
 	// it's only the first thing for now, but I want to push the thing before we leave.
-	printf ("(%c%i/%i)", exps[index].num1.sign, exps[index].num1.num, exps[index].num1.denom);
+	printf ("\n(%c%i/%i)", exps[index].num1.sign, exps[index].num1.num, exps[index].num1.denom);
 	/*printf ("%c",exps[index].num1.sign);
 	printf ("%i",exps[index].num1.num);
 	printf ("/");
@@ -370,12 +384,13 @@ void putExpAns (int index){
 }
 
 
+
 //Handling the menu options//////////////////////////////////////////////////////
 void handling (Menu_Option a){
     switch(a) {
         case OUTPUT:
             // Code
-            putExpAns (a);
+            putExpAns ();
         break;
 
         case GETEXP:
@@ -427,7 +442,7 @@ Menu_Option menu() {
     menuPrint();
     do {
         printf ("Input the number of your choice\n");
-        scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)
+        scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)   ...USE CIN THO -Wilson
         printf ("check\n");
         userInput = atoi (temp);
         printf ("check\n");
