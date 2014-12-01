@@ -66,7 +66,7 @@ void randExps (Expression* exp[], int* arrayCount){
 
     *arrayCount == numExps;
 
-    for (int i; i < numExps; i++){
+    for (int i = 0; i < numExps; i++){
         exp[i]->num1.num == rb (0,99);
         exp[i]->num1.denom == rb (0,99);
         exp[i]->num1.sign == rb (0,1);
@@ -313,20 +313,27 @@ void divEm (Expression* exp){
 void mathStuff(Expression* exp){
     switch(exp->op) {
         case ADD:
-            // addEm
+            addEm(exp);
         break;
 
         case SUB:
-            // subEm
+            (exp);
         break;
 
         case MULT:
-            // multEm
+            (exp);
         break;
 
         case DIV:
-            // divEm
+            (exp);
         break;
+    }
+}
+
+//Because I forgot to write math stuff for functions////////////////////////////
+void mathHandler(Expression* exp[], int numExps){
+    for (int i = 0; i < numExps; i++){
+        mathStuff(exp[i]);
     }
 }
 
