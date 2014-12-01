@@ -58,7 +58,7 @@ void randExps (){
     int numExps;
 
     do{
-        printf ("\nEnter the number of expressions you would like to enter:");
+        printf ("\nEnter the number of expressions you would like to generate: ");
         scanf ("%i", &numExps);
         if (numExps > 30 || numExps < 0){
             printf ("Invalid number.\n");
@@ -388,8 +388,7 @@ void handling (Menu_Option a){
     }
 }
 
-<<<<<<< HEAD
-=======
+
 void menuPrint (){
 system("cls");
 printf ("1)Output the expressions\n");
@@ -400,13 +399,11 @@ printf ("5)Delete an expression\n");
 printf ("6)Generate expressions\n");
 printf ("7)Quit\n");
 }
->>>>>>> 57114eb693e9f92df1387bcb3e32aa077e0d5193
 
 //Menu stuff//////////////////////////////////////////////////////
 Menu_Option menu() {
     char* temp;
     int userInput = 0;
-<<<<<<< HEAD
     printf ("1)Output the expressions\n");
     printf ("2)Manually input and expression\n");
     printf ("3)Sort the expressions by anwser\n");
@@ -414,9 +411,8 @@ Menu_Option menu() {
     printf ("5)Delete an expression\n");
     printf ("6)Generate expressions\n");
     printf ("7)Quit\n");
-=======
-    menuPrint;
->>>>>>> 57114eb693e9f92df1387bcb3e32aa077e0d5193
+    menuPrint();
+
     do {
         printf ("Input the number of your choice\n");
         gets (temp);
