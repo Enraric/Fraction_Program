@@ -357,11 +357,29 @@ void mathHandler(){
     }
 }
 
+// Wilson's shitty output expn. with answer function....
+void putExpAns (int index){
+
+	// it's only the first thing for now, but I want to push the thing before we leave.
+	printf ("(%c%i/%i)", exps[index].num1.sign, exps[index].num1.num, exps[index].num1.denom);
+	/*printf ("%c",exps[index].num1.sign);
+	printf ("%i",exps[index].num1.num);
+	printf ("/");
+	printf ("%i",exps[index].num1.denom);
+	printf (")"); */
+	printf (" %c ",exps[index].op);
+	printf ("(%c%i/%i)", exps[index].num2.sign, exps[index].num2.num, exps[index].num2.denom);
+	printf (" = (%c%i/%i)", exps[index].ans.sign, exps[index].ans.num, exps[index].ans.denom);
+
+}
+
+
 //Handling the menu options//////////////////////////////////////////////////////
 void handling (Menu_Option a){
     switch(a) {
         case OUTPUT:
             // Code
+            putExpAns (0 /*This needs to get the number of the desired expression from the user. I'll fix that.'*/);
         break;
 
         case GETEXP:
@@ -393,20 +411,6 @@ void handling (Menu_Option a){
         break;
     }
 }
-
-// Wilson's shitty output expn. with answer function....
-void putExpAns (int index){
-
-	// it's only the first thing for now, but I want to push the thing before we leave.
-	printf ("(");
-	printf ("%c",exps[index].num1.sign);
-	printf ("%i",exps[index].num1.num);
-	printf ("/");
-	printf ("%i",exps[index].num1.denom);
-	printf (")");
-
-}
-
 
 void menuPrint (){
 printf ("0)Output the expressions\n");
