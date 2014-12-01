@@ -12,7 +12,7 @@ Sort by operator then by answer --- Alex McMorine III
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
+#define MAX_EXP 30
 
 //Custom types/////////////////////////////////////////////////////
 enum Operat {ADD, SUB, MULT, DIV};
@@ -31,7 +31,7 @@ struct Expression {
        Operat op;
 };
 
-Expression exps [30];
+Expression exps [MAX_EXP];
 int numExp = 0;
 
 //created an enum type to make the menu options more readable
@@ -79,11 +79,13 @@ int parse (char string[80], int expNum){
              //finds beginning of expression
             if (string[i] == '(')
                 partition ++;
+            break;
         case 1:
              //finds a negative sign before first number, if any
             if (string[i] == '-')
                 exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
             partition ++;
+            break;
         case 2:
              //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string [i])){
@@ -95,11 +97,13 @@ int parse (char string[80], int expNum){
                 temp[SScount] = 0;
                 partition ++;
             }
+            break;
         case 3:
              //detects negative sign of first number's denominator
             if (string[i] == '-')
                 exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
             partition ++;
+            break;
         case 4:
              //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string[i])){
@@ -111,20 +115,24 @@ int parse (char string[80], int expNum){
                 SScount = 0;
                 partition ++;
             }
+            break;
         case 5:
              //Assigns operator type
             if (string [i] == '+' || string [i] == '-' || string [i] == '/' || string [i] == '*')
                 //exps[expNum].op = string[i];  NEEDS FIXING (How are we storing the enum type of operator? what do we need it to do?)
                 partition ++;
+            break;
         case 6:
              //detects start of second fraction
             if (string [i] == '(')
                 partition ++;
+                break;
         case 7:
              //detects sign of second fraction, numerator
             if (string[i] == '-')
                 exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
             partition ++;
+            break;
         case 8:
              ////adds ANY integer characters into a temporary string, uses atoi once reaches sentinel:      / or )
             if (validInt (string[i])){
@@ -136,11 +144,13 @@ int parse (char string[80], int expNum){
                 SScount = 0;
                 partition ++;
             }
+            break;
         case 9:
              //detects sign fraction 2, denom
             if (string[i] == '-')
                 exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
             partition ++;
+            break;
         case 10:
              //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string[i])){
@@ -151,10 +161,13 @@ int parse (char string[80], int expNum){
                 exps[expNum].num2.denom = atoi (temp);
                 SScount = 0;
                 partition ++;
+                break;
         case 11:
              //done parsing
              printf ("End parse");
              return 1;
+        default:
+            break;
             }
         }
     }
@@ -167,7 +180,8 @@ void getExp (int numExp){
      char temp[80];
      printf ("Please input your expression now\n");
      scanf ("%s", &temp);
-     parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp
+     if (numExp < MAX_EXP)
+        parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp
 }
 
 //__________________________________________________________________End User Input____________________________________________________________
