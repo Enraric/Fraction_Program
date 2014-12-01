@@ -50,18 +50,6 @@ int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
 
-void menuPrint (){
-system("cls");
-printf ("1)Output the expressions\n");
-printf ("2)Manually input and expression\n");
-printf ("3)Sort the expressions by anwser\n");
-printf ("4)Sort the expressions by operator\n");
-printf ("5)Delete an expression\n");
-printf ("6)Generate expressions\n");
-printf ("7)Quit\n");
-}
-
-//-----------------------------------------------RAND STUFF------------------------------------------------
 //-----------------------------------------------RAND STUFF------------------------------------------------
 
 void randExps (Expression* exp[], int* arrayCount){
@@ -90,7 +78,6 @@ void randExps (Expression* exp[], int* arrayCount){
 }
 
 //---------------------------------------------------------------------------------------------------------
-//---------------------------------------------------------------------------------------------------------
 
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
@@ -118,8 +105,6 @@ int parse (char string[80], int expNum){
     char temp [80];
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
-    for (int i = 0; string[i] != 0; i++)
-        switch (partition){
     for (int i = 0; string[i] != 0; i++){
         printf ("\t%i\n",partition);
         switch (partition){
@@ -213,14 +198,14 @@ int parse (char string[80], int expNum){
                 break;
         case 11:
              //done parsing
-             printf ("End parse");
+             printf ("parse complete");
              return 1;
         default:
+            printf ("parse failed");
             break;
             }
         }
     }
-}
 }
 //_______________________________________________________________END PARSING SECTION__________________________________________________________
 
@@ -231,7 +216,6 @@ void getExp (int numExp){
      scanf ("%s", &temp);
      if (numExp < MAX_EXP)
         parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp
-    menuPrint;
 }
 //__________________________________________________________________End User Input____________________________________________________________
 
@@ -402,6 +386,17 @@ void handling (Menu_Option a){
             // Code
         break;
     }
+}
+
+void menuPrint (){
+system("cls");
+printf ("1)Output the expressions\n");
+printf ("2)Manually input and expression\n");
+printf ("3)Sort the expressions by anwser\n");
+printf ("4)Sort the expressions by operator\n");
+printf ("5)Delete an expression\n");
+printf ("6)Generate expressions\n");
+printf ("7)Quit\n");
 }
 
 //Menu stuff//////////////////////////////////////////////////////
