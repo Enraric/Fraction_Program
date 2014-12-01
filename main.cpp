@@ -1,6 +1,6 @@
 /* INTRUCTIONS
 Add random expression --- Alex McMorine III
-    Done: Get expression from user --- Harrison
+Get expression from user --- Harrison
 Sort by answer --- Harrison
 Output expressions with answers --- Swiggity Swilson
 Delete expression --- Swiggityy Swilson
@@ -110,6 +110,9 @@ int parse (char string[80], int expNum){
     //walks through array, looking for a different sentinels
     for (int i = 0; string[i] != 0; i++)
         switch (partition){printf ("1)Output the expressions\n")
+    for (int i = 0; string[i] != 0; i++){
+        printf ("\t%i\n",partition);
+        switch (partition){
         case 0:
              //finds beginning of expression
             if (string[i] == '(')
@@ -188,19 +191,21 @@ int parse (char string[80], int expNum){
                 partition ++;
         case 11:
              //done parsing
+             printf ("End parse");
              return 1;
             }
         }
+    }
 }
 //_______________________________________________________________END PARSING SECTION__________________________________________________________
 
 //_________________________________________________________________Begin User Input___________________________________________________________
 //HOW DO YOU WANT TO DO THIS: Have it return a string, or assign the string directly to the struct?
-char* getExp (){
+void getExp (int numExp){
      char temp[80];
-     printf ("Please input your expression now");
+     printf ("Please input your expression now\n");
      scanf ("%s", &temp);
-     return temp;
+     parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp
 }
 printf ("1)Output the expressions\n")
 //__________________________________________________________________End User Input____________________________________________________________
@@ -345,7 +350,7 @@ void handling (Menu_Option a){
         break;
 
         case GETEXP:
-            // Code
+            getExp(numExp);
         break;
 
         case SORT_ANSWER:
