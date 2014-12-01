@@ -1,6 +1,6 @@
 /* INTRUCTIONS
 Add random expression --- Swiggity Swilson
-Get expression from user --- Harrison (I take it I don't have a "cool" name)
+    Done: Get expression from user --- Harrison
 Sort by answer --- Harrison
 Output expressions with answers --- Alex McMorine III
 Delete expression --- Swiggityy Swilson
@@ -29,6 +29,7 @@ struct Expression {
        Fraction num2;
        Fraction ans;
        Operat op;
+       char String; //added this for user input string to be saved in the array
 };
 
 Expression exps [30];
@@ -45,7 +46,7 @@ int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
 
-//_________________________________________________________BEGIN PARSE SECTION_______________________________________________________________
+//______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
 int validInt (char string){
 if (string >= 48 && string <= 57)
@@ -157,6 +158,16 @@ int parse (char string[80], int expNum){
 }
 //_______________________________________________________________END PARSING SECTION__________________________________________________________
 
+//_________________________________________________________________Begin User Input___________________________________________________________
+//HOW DO YOU WANT TO DO THIS: Have it return a string, or assign the string directly to the struct?
+char* getExp (){
+     char temp[80];
+     printf ("Please input your expression now");
+     scanf ("%s", &temp);
+     return temp;
+}
+
+//__________________________________________________________________End User Input____________________________________________________________
 
 //Determining the sign/////////////////////////////////////////////
 void signFinder (Expression* exp){
