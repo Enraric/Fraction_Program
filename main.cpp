@@ -12,14 +12,11 @@ Sort by operator then by answer --- Alex McMorine III
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-<<<<<<< HEAD
 #define MAX_EXP 30
-=======
 
 int rb (int min, int max) {
     return rand() % (max - min + 1) + min;
 }
->>>>>>> origin/master
 
 //Custom types/////////////////////////////////////////////////////
 enum Operat {ADD, SUB, MULT, DIV};
@@ -53,6 +50,16 @@ int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
 
+void menuPrint (){
+system("cls");
+printf ("1)Output the expressions\n");
+printf ("2)Manually input and expression\n");
+printf ("3)Sort the expressions by anwser\n");
+printf ("4)Sort the expressions by operator\n");
+printf ("5)Delete an expression\n");
+printf ("6)Generate expressions\n");
+printf ("7)Quit\n");
+}
 
 //-----------------------------------------------RAND STUFF------------------------------------------------
 //-----------------------------------------------RAND STUFF------------------------------------------------
@@ -85,7 +92,6 @@ void randExps (Expression* exp[], int* arrayCount){
 //---------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------
 
-/*
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
 int validInt (char string){
@@ -113,7 +119,7 @@ int parse (char string[80], int expNum){
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
     for (int i = 0; string[i] != 0; i++)
-        switch (partition){printf ("1)Output the expressions\n")
+        switch (partition){
     for (int i = 0; string[i] != 0; i++){
         printf ("\t%i\n",partition);
         switch (partition){
@@ -149,13 +155,13 @@ int parse (char string[80], int expNum){
         case 4:
              //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string[i])){
-                temp[SScount] = str----------ing[i];
+                temp[SScount] = string[i];
                 SScount ++;
             }
             else if (string[i] == ')'){
                 exps[expNum].num1.denom = atoi (temp);
                 SScount = 0;
-                partition ++;Alex McMorine III
+                partition ++;
             }
             break;
         case 5:
@@ -167,12 +173,9 @@ int parse (char string[80], int expNum){
         case 6:
              //detects start of second fraction
             if (string [i] == '(')
-<<<<<<< HEAD
                 partition ++;
                 break;
-=======
-                partition ++;printf ("1)Output the expressions\n")
->>>>>>> origin/master
+                partition ++;
         case 7:
              //detects sign of second fraction, numerator
             if (string[i] == '-')
@@ -218,20 +221,20 @@ int parse (char string[80], int expNum){
         }
     }
 }
+}
 //_______________________________________________________________END PARSING SECTION__________________________________________________________
 
 //_________________________________________________________________Begin User Input___________________________________________________________
-//HOW DO YOU WANT TO DO THIS: Have it return a string, or assign the string directly to the struct?
 void getExp (int numExp){
      char temp[80];
      printf ("Please input your expression now\n");
      scanf ("%s", &temp);
      if (numExp < MAX_EXP)
         parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp
+    menuPrint;
 }
-printf ("1)Output the expressions\n")
 //__________________________________________________________________End User Input____________________________________________________________
-*/
+
 //Determining the sign/////////////////////////////////////////////
 void signFinder (Expression* exp){
     if (exp->ans.num < 0){
@@ -401,21 +404,11 @@ void handling (Menu_Option a){
     }
 }
 
-void menuprint (){
-system("cls");
-printf ("1)Output the expressions\n");
-printf ("2)Manually input and expression\n");
-printf ("3)Sort the expressions by anwser\n");
-printf ("4)Sort the expressions by operator\n");
-printf ("5)Delete an expression\n");
-printf ("6)Generate expressions\n");
-printf ("7)Quit\n");
-}
-
 //Menu stuff//////////////////////////////////////////////////////
 Menu_Option menu() {
     char* temp;
     int userInput = 0;
+    menuPrint;
     do {
         printf ("Input the number of your choice\n");
         gets (temp);
