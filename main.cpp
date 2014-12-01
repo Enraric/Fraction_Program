@@ -41,8 +41,7 @@ Expression exps [MAX_EXP];
 int numExp = 0;
 
 //created an enum type to make the menu options more readable
-enum Menu_Option {OUTPUT = 0, GETEXP = 1, SORT = 2, SORT_ANSWER = 3, SORT_OPERATOR = 4, DELETE = 5, GENERATE = 6, QUIT = 7, MENU_MAX = 8};
-
+enum Menu_Option {OUTPUT = 0, GETEXP = 1, SORT_ANSWER = 2, SORT_OPERATOR = 3, DELETE = 4, GENERATE = 5, QUIT = 6, MENU_MAX = 7};
 //checks whether input is valid or not
 bool inputCheck(int userInput) {
     return (0 <= userInput && userInput <= MENU_MAX) ? 1 : 0; //It's a compact if/else, dude. Not magic at all.
@@ -125,12 +124,8 @@ Sign signSwap(Sign sign){
 }
 
 int parse (char string[80], int expNum){
-<<<<<<< HEAD
     printf ("entered parse\n");
     int SScount, partition = 0;
-=======
-    int count, SScount, partition = 0;
->>>>>>> cc325b59c334c4d0bf4e97115580d6db30e8904d
     char temp [80];
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
@@ -149,12 +144,8 @@ int parse (char string[80], int expNum){
             partition ++;
             break;
         case 2:
-<<<<<<< HEAD
              //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
              printf ("entered case 2\n");
-=======
-             //adds ANY integer ----------characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
->>>>>>> cc325b59c334c4d0bf4e97115580d6db30e8904d
             if (validInt (string [i])){
                 printf ("entered if\n");
                 temp[SScount] = string[i];
@@ -247,10 +238,7 @@ int parse (char string[80], int expNum){
 
 //_________________________________________________________________Begin User Input___________________________________________________________
 void getExp (int numExp){
-<<<<<<< HEAD
     printf ("entered getExp\n");//bugcheck line
-=======
->>>>>>> cc325b59c334c4d0bf4e97115580d6db30e8904d
      char temp[80];
      printf ("Please input your expression now\n");
      scanf ("%s", &temp);
@@ -389,7 +377,6 @@ void mathHandler(){
     }
 }
 
-<<<<<<< HEAD
 // Wilson's shitty output expn. with answer function....
 void putExpAns (int index){
 
@@ -406,18 +393,12 @@ void putExpAns (int index){
 
 }
 
-
-=======
->>>>>>> cc325b59c334c4d0bf4e97115580d6db30e8904d
 //Handling the menu options//////////////////////////////////////////////////////
 void handling (Menu_Option a){
     switch(a) {
         case OUTPUT:
             // Code
-<<<<<<< HEAD
             putExpAns (0 /*This needs to get the number of the desired expression from the user. I'll fix that.'*/);
-=======
->>>>>>> cc325b59c334c4d0bf4e97115580d6db30e8904d
         break;
 
         case GETEXP:
@@ -450,32 +431,29 @@ void handling (Menu_Option a){
     }
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> cc325b59c334c4d0bf4e97115580d6db30e8904d
 void menuPrint (){
-system("cls");
-printf ("1)Output the expressions\n");
-printf ("2)Manually input and expression\n");
-printf ("3)Sort the expressions by anwser\n");
-printf ("4)Sort the expressions by operator\n");
-printf ("5)Delete an expression\n");
-printf ("6)Generate expressions\n");
-printf ("7)Quit\n");
+printf ("0)Output the expressions\n");
+printf ("1)Manually input and expression\n");
+printf ("2)Sort the expressions by anwser\n");
+printf ("3)Sort the expressions by operator\n");
+printf ("4)Delete an expression\n");
+printf ("5)Generate expressions\n");
+printf ("6)Quit\n");
 }
 
 //Menu stuff//////////////////////////////////////////////////////
 Menu_Option menu() {
-    char* temp;
+    char temp [80];
     int userInput = 0;
     menuPrint();
-
     do {
         printf ("Input the number of your choice\n");
-        gets (temp);
+        scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)
+        printf ("check\n");
         userInput = atoi (temp);
+        printf ("check\n");
     } while (!inputCheck (userInput));
+    printf ("check\n");
     return (Menu_Option) userInput;
 }
 
