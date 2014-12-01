@@ -13,6 +13,9 @@ Sort by operator then by answer --- Alex McMorine III
 #include <string.h>
 #include <time.h>
 
+int rb (int min, int max) {
+    return rand() % (max - min + 1) + min;
+}
 
 //Custom types/////////////////////////////////////////////////////
 enum Operat {ADD, SUB, MULT, DIV};
@@ -29,7 +32,6 @@ struct Expression {
        Fraction num2;
        Fraction ans;
        Operat op;
-       char String; //added this for user input string to be saved in the array
 };
 
 Expression exps [30];
@@ -47,6 +49,39 @@ int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
 
+
+//-----------------------------------------------RAND STUFF------------------------------------------------
+//-----------------------------------------------RAND STUFF------------------------------------------------
+
+void randExps (Expression* exp[], int* arrayCount){
+    int numExps;
+
+    do{
+        printf ("\nEnter the number of expressions you would like to enter:");
+        scanf ("%i", &numExps);
+        if (numExps > 30 || numExps < 0){
+            printf ("Invalid number.\n");
+        }
+    }while (numExps > 30 || numExps < 0);
+
+    *arrayCount == numExps;
+
+    for (int i; i < numExps; i++){
+        exp[i]->num1.num == rb (0,99);
+        exp[i]->num1.denom == rb (0,99);
+        exp[i]->num1.sign == rb (0,1);
+        exp[i]->num2.num == rb (0,99);
+        exp[i]->num2.denom == rb (0,99);
+        exp[i]->num2.sign == rb (0,2);
+        exp[i]->op == rb (0,3);
+    }
+
+}
+
+//---------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------
+
+/*
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
 int validInt (char string){
@@ -85,7 +120,7 @@ int parse (char string[80], int expNum){
                 exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
             partition ++;
         case 2:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
+             //adds ANY integer ----------characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string [i])){
                 temp[SScount] = string[i];
                 SScount ++;
@@ -103,13 +138,13 @@ int parse (char string[80], int expNum){
         case 4:
              //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string[i])){
-                temp[SScount] = string[i];
+                temp[SScount] = str----------ing[i];
                 SScount ++;
             }
             else if (string[i] == ')'){
                 exps[expNum].num1.denom = atoi (temp);
                 SScount = 0;
-                partition ++;
+                partition ++;Alex McMorine III
             }
         case 5:
              //Assigns operator type
@@ -137,7 +172,7 @@ int parse (char string[80], int expNum){
                 partition ++;
             }
         case 9:
-             //detects sign fraction 2, denom
+             //detectAlex McMorine IIIs sign fraction 2, denom
             if (string[i] == '-')
                 exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
             partition ++;
@@ -169,7 +204,7 @@ char* getExp (){
 }
 
 //__________________________________________________________________End User Input____________________________________________________________
-
+*/
 //Determining the sign/////////////////////////////////////////////
 void signFinder (Expression* exp){
     if (exp->ans.num < 0){
