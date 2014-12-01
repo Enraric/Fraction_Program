@@ -12,7 +12,14 @@ Sort by operator then by answer --- Alex McMorine III
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+<<<<<<< HEAD
 #define MAX_EXP 30
+=======
+
+int rb (int min, int max) {
+    return rand() % (max - min + 1) + min;
+}
+>>>>>>> origin/master
 
 //Custom types/////////////////////////////////////////////////////
 enum Operat {ADD, SUB, MULT, DIV};
@@ -46,6 +53,39 @@ int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
 
+
+//-----------------------------------------------RAND STUFF------------------------------------------------
+//-----------------------------------------------RAND STUFF------------------------------------------------
+
+void randExps (Expression* exp[], int* arrayCount){
+    int numExps;
+
+    do{
+        printf ("\nEnter the number of expressions you would like to enter:");
+        scanf ("%i", &numExps);
+        if (numExps > 30 || numExps < 0){
+            printf ("Invalid number.\n");
+        }
+    }while (numExps > 30 || numExps < 0);
+
+    *arrayCount == numExps;
+
+    for (int i = 0; i < numExps; i++){
+        exp[i]->num1.num == rb (0,99);
+        exp[i]->num1.denom == rb (0,99);
+        exp[i]->num1.sign == rb (0,1);
+        exp[i]->num2.num == rb (0,99);
+        exp[i]->num2.denom == rb (0,99);
+        exp[i]->num2.sign == rb (0,2);
+        exp[i]->op == rb (0,3);
+    }
+
+}
+
+//---------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------
+
+/*
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
 int validInt (char string){
@@ -72,6 +112,8 @@ int parse (char string[80], int expNum){
     char temp [80];
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
+    for (int i = 0; string[i] != 0; i++)
+        switch (partition){printf ("1)Output the expressions\n")
     for (int i = 0; string[i] != 0; i++){
         printf ("\t%i\n",partition);
         switch (partition){
@@ -87,7 +129,7 @@ int parse (char string[80], int expNum){
             partition ++;
             break;
         case 2:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
+             //adds ANY integer ----------characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string [i])){
                 temp[SScount] = string[i];
                 SScount ++;
@@ -107,13 +149,13 @@ int parse (char string[80], int expNum){
         case 4:
              //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string[i])){
-                temp[SScount] = string[i];
+                temp[SScount] = str----------ing[i];
                 SScount ++;
             }
             else if (string[i] == ')'){
                 exps[expNum].num1.denom = atoi (temp);
                 SScount = 0;
-                partition ++;
+                partition ++;Alex McMorine III
             }
             break;
         case 5:
@@ -125,8 +167,12 @@ int parse (char string[80], int expNum){
         case 6:
              //detects start of second fraction
             if (string [i] == '(')
+<<<<<<< HEAD
                 partition ++;
                 break;
+=======
+                partition ++;printf ("1)Output the expressions\n")
+>>>>>>> origin/master
         case 7:
              //detects sign of second fraction, numerator
             if (string[i] == '-')
@@ -146,7 +192,7 @@ int parse (char string[80], int expNum){
             }
             break;
         case 9:
-             //detects sign fraction 2, denom
+             //detectAlex McMorine IIIs sign fraction 2, denom
             if (string[i] == '-')
                 exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
             partition ++;
@@ -183,9 +229,9 @@ void getExp (int numExp){
      if (numExp < MAX_EXP)
         parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp
 }
-
+printf ("1)Output the expressions\n")
 //__________________________________________________________________End User Input____________________________________________________________
-
+*/
 //Determining the sign/////////////////////////////////////////////
 void signFinder (Expression* exp){
     if (exp->ans.num < 0){
@@ -206,7 +252,7 @@ void signFinder (Expression* exp){
 void addEm (Expression* exp){
     //Setting the denominator
     exp->ans.denom = exp->num1.denom * exp->num2.denom;
-    //Figuring out the numerator
+    //Figuring out the numeratprintf ("1)Output the expressions\n")or
     if (exp->num1.sign == POS && exp->num1.sign == POS){
         exp->ans.num = (exp->num1.num * exp->num2.denom) + (exp->num2.num * exp->num1.denom);
     }
@@ -294,20 +340,27 @@ void divEm (Expression* exp){
 void mathStuff(Expression* exp){
     switch(exp->op) {
         case ADD:
-            // addEm
+            addEm(exp);
         break;
 
         case SUB:
-            // subEm
+            (exp);
         break;
 
         case MULT:
-            // multEm
+            (exp);
         break;
 
         case DIV:
-            // divEm
+            (exp);
         break;
+    }
+}
+
+//Because I forgot to write math stuff for functions////////////////////////////
+void mathHandler(Expression* exp[], int numExps){
+    for (int i = 0; i < numExps; i++){
+        mathStuff(exp[i]);
     }
 }
 
@@ -320,10 +373,6 @@ void handling (Menu_Option a){
 
         case GETEXP:
             getExp(numExp);
-        break;
-
-        case SORT:
-            // Code
         break;
 
         case SORT_ANSWER:
@@ -350,6 +399,17 @@ void handling (Menu_Option a){
             // Code
         break;
     }
+}
+
+void menuprint (){
+system("cls");
+printf ("1)Output the expressions\n");
+printf ("2)Manually input and expression\n");
+printf ("3)Sort the expressions by anwser\n");
+printf ("4)Sort the expressions by operator\n");
+printf ("5)Delete an expression\n");
+printf ("6)Generate expressions\n");
+printf ("7)Quit\n");
 }
 
 //Menu stuff//////////////////////////////////////////////////////
