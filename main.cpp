@@ -7,6 +7,8 @@ Delete expression --- Swiggityy Swilson
 Sort by operator then by answer --- Alex McMorine III
 */
 //Harrison: Guys, can we initialize our fractions?  It would make sign swapping a helluva lot easier (specifically make sign positive)
+//Alex  M: Feel free to if you can do it without destroying everything
+
 
 #include <stdio.h>
 #include <stdlib.h>
