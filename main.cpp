@@ -15,9 +15,20 @@ Sort by operator then by answer --- Alex McMorine III
 #include <string.h>
 #include <time.h>
 #define MAX_EXP 30
+#include "iostream"
+
 
 int rb (int min, int max) {
     return rand() % (max - min + 1) + min;
+}
+
+int getNum (int min, int max){ // Thing Wilson likes to have to get a number between a min and max value. Could be useful.
+	int num = 0;
+		
+	std::cin >> num;
+	while (num< min || num > max){
+		std::cin >> num;
+	}
 }
 
 //Custom types/////////////////////////////////////////////////////
@@ -42,6 +53,7 @@ int numExp = 0;
 
 //created an enum type to make the menu options more readable
 enum Menu_Option {OUTPUT = 0, GETEXP = 1, SORT_ANSWER = 2, SORT_OPERATOR = 3, DELETE = 4, GENERATE = 5, QUIT = 6, MENU_MAX = 7};
+
 //checks whether input is valid or not
 bool inputCheck(int userInput) {
     return (0 <= userInput && userInput <= MENU_MAX) ? 1 : 0; //It's a compact if/else, dude. Not magic at all.
@@ -50,27 +62,6 @@ bool inputCheck(int userInput) {
 int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
-
-//-------------------------------------------Sorting by Operator-------------------------------------------
-
-void opSort (){
-    Expression temp;
-    for (int i = 0; i < numExp; i++){
-        for (int j = 0; j < numExp; i++){
-            if (exps[i].op > exps[i+1].op){
-                temp = exps[i+1];
-                exps[i+1] = exps[i];
-                exps[i] = temp;
-            }
-            else if (exps[i].op == exps[i+1].op && exps[i].ans.num/exps[i].ans.denom > exps[i+1].ans.num/exps[i+1].ans.denom && exps[i].ans.sign >= exps[i].ans.sign){
-                temp = exps[i+1];
-                exps[i+1] = exps[i];
-                exps[i] = temp;
-            }
-        }
-    }
-}
-
 
 //-----------------------------------------------RAND STUFF------------------------------------------------
 
@@ -103,19 +94,18 @@ void randExps (){
 
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
-bool validInt (char string){
-    printf ("entered validint\n");
+int validInt (char string){
 if (string >= 48 && string <= 57)
     return 1;
 else
     return 0;
 }
 
-bool validOperator (char string){
+int validOperator (char string){
     return ((string) == '+' || (string) == '-' || (string) == '/' || (string) == '*' );
 }
 
-Sign signSwap(Sign sign){
+Sign signSwap(Sign sign){//The naming is strong with this one
     if (sign == NEG)
        sign = POS;
     else if (sign == POS)
@@ -124,14 +114,12 @@ Sign signSwap(Sign sign){
 }
 
 int parse (char string[80], int expNum){
-    printf ("entered parse\n");
-    printf ("%s",string);
-    int partition = 0;
-    int SScount = 0;
+    printf ("entered parse");
+    int SScount, partition = 0;
     char temp [80];
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
-    for (int i = 0; (string[i] != 0)+1; i++){
+    for (int i = 0; string[i] != 0; i++){
         printf ("\t%i\n",partition);
         switch (partition){
         case 0:
@@ -146,7 +134,7 @@ int parse (char string[80], int expNum){
             partition ++;
             break;
         case 2:
-             //adds ANY integer characters into a temporary string, uses atoi until reaches sentinel: / or )
+             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string [i])){
                 temp[SScount] = string[i];
                 SScount ++;
@@ -185,7 +173,8 @@ int parse (char string[80], int expNum){
              //detects start of second fraction
             if (string [i] == '(')
                 partition ++;
-            break;
+                break;
+                partition ++;
         case 7:
              //detects sign of second fraction, numerator
             if (string[i] == '-')
@@ -205,13 +194,13 @@ int parse (char string[80], int expNum){
             }
             break;
         case 9:
-             //detectAlex McMorine IIIs sign fraction 2, denom
+             //detects sign fraction 2, denom
             if (string[i] == '-')
                 exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
             partition ++;
             break;
         case 10:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: or / or )
+             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
             if (validInt (string[i])){
                 temp[SScount] = string[i];
                 SScount ++;
@@ -221,29 +210,27 @@ int parse (char string[80], int expNum){
                 SScount = 0;
                 partition ++;
                 break;
-            }
         case 11:
              //done parsing
-             printf ("parse complete\n");
+             printf ("parse complete");
              return 1;
         default:
-            printf ("parse failed\n");
-            return 0;
+            printf ("parse failed");
+            break;
+            }
         }
     }
-    printf ("parse failed\n");
-    return 0;
 }
 //_______________________________________________________________END PARSING SECTION__________________________________________________________
 
 //_________________________________________________________________Begin User Input___________________________________________________________
 void getExp (int numExp){
-    printf ("entered getExp\n");//bugcheck line
+    printf ("entered getExp");//bugcheck line
      char temp[80];
-     do{
-     printf ("Please input a valid expression\n");
+     printf ("Please input your expression now\n");
      scanf ("%s", &temp);
-     }while (! parse(temp, numExp) && (numExp < MAX_EXP));//parses string into THE SLOT DEFINED BY numExp
+     if (numExp < MAX_EXP)
+        parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp (#elements of array +1)
 }
 //__________________________________________________________________End User Input____________________________________________________________
 
@@ -378,10 +365,13 @@ void mathHandler(){
 }
 
 // Wilson's shitty output expn. with answer function....
-void putExpAns (int index){
-
+void putExpAns (){	
+	int index = 0;
+	
+	printf ("Input which # expression you would like to output (0-29). \n");
+	getNum (0,29);
 	// it's only the first thing for now, but I want to push the thing before we leave.
-	printf ("(%c%i/%i)", exps[index].num1.sign, exps[index].num1.num, exps[index].num1.denom);
+	printf ("\n(%c%i/%i)", exps[index].num1.sign, exps[index].num1.num, exps[index].num1.denom);
 	/*printf ("%c",exps[index].num1.sign);
 	printf ("%i",exps[index].num1.num);
 	printf ("/");
@@ -390,15 +380,17 @@ void putExpAns (int index){
 	printf (" %c ",exps[index].op);
 	printf ("(%c%i/%i)", exps[index].num2.sign, exps[index].num2.num, exps[index].num2.denom);
 	printf (" = (%c%i/%i)", exps[index].ans.sign, exps[index].ans.num, exps[index].ans.denom);
-
+	
 }
+
+
 
 //Handling the menu options//////////////////////////////////////////////////////
 void handling (Menu_Option a){
     switch(a) {
         case OUTPUT:
             // Code
-            putExpAns (0 /*This needs to get the number of the desired expression from the user. I'll fix that.'*/);
+            putExpAns ();
         break;
 
         case GETEXP:
@@ -431,6 +423,8 @@ void handling (Menu_Option a){
     }
 }
 
+
+
 void menuPrint (){
 printf ("0)Output the expressions\n");
 printf ("1)Manually input and expression\n");
@@ -448,16 +442,19 @@ Menu_Option menu() {
     menuPrint();
     do {
         printf ("Input the number of your choice\n");
-        scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)
+        scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)   ...USE CIN THO -Wilson
+        printf ("check\n");
         userInput = atoi (temp);
+        printf ("check\n");
     } while (!inputCheck (userInput));
+    printf ("check\n");
     return (Menu_Option) userInput;
 }
 
 
 //Main//////////////////////////////////////////////////////
 int main() {
-    srand ((unsigned)time(NULL));
+	srand (time(NULL))
     Menu_Option menuchoice = menu();
     handling (menuchoice);
 }
