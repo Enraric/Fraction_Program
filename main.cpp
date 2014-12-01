@@ -7,7 +7,7 @@ Delete expression --- Swiggityy Swilson
 Sort by operator then by answer --- Alex McMorine III
 */
 //Harrison: Guys, can we initialize our fractions?  It would make sign swapping a helluva lot easier (specifically make sign positive)
-// PLEASE DONT KILL ME
+// We're so fucked -Wilson
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -338,11 +338,26 @@ void mathHandler(Expression* exp[], int numExps){
     }
 }
 
+// Wilson's shitty output expn. with answer function....
+void putExpAns (int index){
+	
+	// it's only the first thing for now, but I want to push the thing before we leave.
+	printf ("(");
+	printf ("%c",exps[index].num1.sign);
+	printf ("%i",exps[index].num1.num);
+	printf ("/");
+	printf ("%i",exps[index].num1.denom);
+	printf (")");
+	
+}
+
+
 //Handling the menu options//////////////////////////////////////////////////////
 void handling (Menu_Option a){
     switch(a) {
         case OUTPUT:
             // Code
+            putExpAns (a);
         break;
 
         case GETEXP:
@@ -394,6 +409,7 @@ Menu_Option menu() {
 
 //Main//////////////////////////////////////////////////////
 int main() {
+	srand (time(NULL));
     Menu_Option menuchoice = menu();
     handling (menuchoice);
 }
