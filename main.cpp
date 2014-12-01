@@ -1,6 +1,6 @@
 /* INTRUCTIONS
 Add random expression --- Alex McMorine III
-    Done: Get expression from user --- Harrison
+Get expression from user --- Harrison
 Sort by answer --- Harrison
 Output expressions with answers --- Swiggity Swilson
 Delete expression --- Swiggityy Swilson
@@ -29,7 +29,6 @@ struct Expression {
        Fraction num2;
        Fraction ans;
        Operat op;
-       char String; //added this for user input string to be saved in the array
 };
 
 Expression exps [30];
@@ -69,6 +68,7 @@ Sign signSwap(Sign sign){//The naming is strong with this one
 }
 
 int parse (char string[80], int expNum){
+    printf("%s",string);
     int count, SScount, partition = 0;
     char temp [80];
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
@@ -153,6 +153,7 @@ int parse (char string[80], int expNum){
                 partition ++;
         case 11:
              //done parsing
+             printf ("End parse");
              return 1;
             }
         }
@@ -161,11 +162,11 @@ int parse (char string[80], int expNum){
 
 //_________________________________________________________________Begin User Input___________________________________________________________
 //HOW DO YOU WANT TO DO THIS: Have it return a string, or assign the string directly to the struct?
-char* getExp (){
+void getExp (int numExp){
      char temp[80];
-     printf ("Please input your expression now");
+     printf ("Please input your expression now\n");
      scanf ("%s", &temp);
-     return temp;
+     parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp
 }
 
 //__________________________________________________________________End User Input____________________________________________________________
@@ -303,7 +304,7 @@ void handling (Menu_Option a){
         break;
 
         case GETEXP:
-            // Code
+            getExp(numExp);
         break;
 
         case SORT:
