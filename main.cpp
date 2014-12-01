@@ -103,7 +103,7 @@ void randExps (){
 
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
-int validInt (char string){
+bool validInt (char string){
     printf ("entered validint\n");
 if (string >= 48 && string <= 57)
     return 1;
@@ -111,7 +111,7 @@ else
     return 0;
 }
 
-int validOperator (char string){
+bool validOperator (char string){
     return ((string) == '+' || (string) == '-' || (string) == '/' || (string) == '*' );
 }
 
@@ -125,11 +125,13 @@ Sign signSwap(Sign sign){
 
 int parse (char string[80], int expNum){
     printf ("entered parse\n");
-    int SScount, partition = 0;
+    printf ("%s",string);
+    int partition = 0;
+    int SScount = 0;
     char temp [80];
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
-    for (int i = 0; string[i] != 0; i++){
+    for (int i = 0; (string[i] != 0)+1; i++){
         printf ("\t%i\n",partition);
         switch (partition){
         case 0:
@@ -144,12 +146,9 @@ int parse (char string[80], int expNum){
             partition ++;
             break;
         case 2:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
-             printf ("entered case 2\n");
+             //adds ANY integer characters into a temporary string, uses atoi until reaches sentinel: / or )
             if (validInt (string [i])){
-                printf ("entered if\n");
                 temp[SScount] = string[i];
-                printf ("added success\n");
                 SScount ++;
             }
             else if (string[i] == '/'){
@@ -186,8 +185,7 @@ int parse (char string[80], int expNum){
              //detects start of second fraction
             if (string [i] == '(')
                 partition ++;
-                break;
-                partition ++;
+            break;
         case 7:
              //detects sign of second fraction, numerator
             if (string[i] == '-')
@@ -213,7 +211,7 @@ int parse (char string[80], int expNum){
             partition ++;
             break;
         case 10:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
+             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: or / or )
             if (validInt (string[i])){
                 temp[SScount] = string[i];
                 SScount ++;
@@ -223,16 +221,18 @@ int parse (char string[80], int expNum){
                 SScount = 0;
                 partition ++;
                 break;
+            }
         case 11:
              //done parsing
-             printf ("parse complete");
+             printf ("parse complete\n");
              return 1;
         default:
-            printf ("parse failed");
-            break;
-            }
+            printf ("parse failed\n");
+            return 0;
         }
     }
+    printf ("parse failed\n");
+    return 0;
 }
 //_______________________________________________________________END PARSING SECTION__________________________________________________________
 
@@ -240,10 +240,10 @@ int parse (char string[80], int expNum){
 void getExp (int numExp){
     printf ("entered getExp\n");//bugcheck line
      char temp[80];
-     printf ("Please input your expression now\n");
+     do{
+     printf ("Please input a valid expression\n");
      scanf ("%s", &temp);
-     if (numExp < MAX_EXP)
-        parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp
+     }while (! parse(temp, numExp) && (numExp < MAX_EXP));//parses string into THE SLOT DEFINED BY numExp
 }
 //__________________________________________________________________End User Input____________________________________________________________
 
@@ -449,11 +449,8 @@ Menu_Option menu() {
     do {
         printf ("Input the number of your choice\n");
         scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)
-        printf ("check\n");
         userInput = atoi (temp);
-        printf ("check\n");
     } while (!inputCheck (userInput));
-    printf ("check\n");
     return (Menu_Option) userInput;
 }
 
