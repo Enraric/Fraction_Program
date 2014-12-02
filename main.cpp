@@ -58,6 +58,26 @@ enum Menu_Option {OUTPUT = 0, GETEXP = 1, SORT_ANSWER = 2, SORT_OPERATOR = 3, DE
 bool inputCheck(int userInput) {
     return (0 <= userInput && userInput <= MENU_MAX) ? 1 : 0; //It's a compact if/else, dude. Not magic at all.
 }
+//-------------------------------------------Sorting by Operator-------------------------------------------
+
+void opSort (){
+    Expression temp;
+    for (int i = 0; i < numExp; i++){
+        for (int j = 0; j < numExp; i++){
+            if (exps[i].op > exps[i+1].op){
+                temp = exps[i+1];
+                exps[i+1] = exps[i];
+                exps[i] = temp;
+            }
+            else if (exps[i].op == exps[i+1].op && exps[i].ans.num/exps[i].ans.denom > exps[i+1].ans.num/exps[i+1].ans.denom && exps[i].ans.sign >= exps[i].ans.sign){
+                temp = exps[i+1];
+                exps[i+1] = exps[i];
+                exps[i] = temp;
+            }
+        }
+    }
+}
+
 
 int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
@@ -94,14 +114,18 @@ void randExps (){
 
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
-int validInt (char string){
+bool validInt (char string){
+<<<<<<< HEAD
+=======
+    printf ("entered validint\n");
+>>>>>>> parent of b7d3185... Parse works better
 if (string >= 48 && string <= 57)
     return 1;
 else
     return 0;
 }
 
-int validOperator (char string){
+bool validOperator (char string){
     return ((string) == '+' || (string) == '-' || (string) == '/' || (string) == '*' );
 }
 
@@ -114,12 +138,17 @@ Sign signSwap(Sign sign){//The naming is strong with this one
 }
 
 int parse (char string[80], int expNum){
+<<<<<<< HEAD
     printf ("entered parse");
+=======
+    printf ("entered parse\n");
+    printf ("%s",string);
+>>>>>>> parent of b7d3185... Parse works better
     int SScount, partition = 0;
     char temp [80];
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
-    for (int i = 0; string[i] != 0; i++){
+    for (int i = 0; string[i] != 0+1; i++){
         printf ("\t%i\n",partition);
         switch (partition){
         case 0:
@@ -135,8 +164,14 @@ int parse (char string[80], int expNum){
             break;
         case 2:
              //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
+<<<<<<< HEAD
+=======
+             printf ("entered case 2\n");
+>>>>>>> parent of b7d3185... Parse works better
             if (validInt (string [i])){
+                printf ("entered if\n");
                 temp[SScount] = string[i];
+                printf ("added success\n");
                 SScount ++;
             }
             else if (string[i] == '/'){
@@ -174,7 +209,6 @@ int parse (char string[80], int expNum){
             if (string [i] == '(')
                 partition ++;
                 break;
-                partition ++;
         case 7:
              //detects sign of second fraction, numerator
             if (string[i] == '-')
@@ -210,12 +244,13 @@ int parse (char string[80], int expNum){
                 SScount = 0;
                 partition ++;
                 break;
+            }
         case 11:
              //done parsing
-             printf ("parse complete");
+             printf ("parse complete\n");
              return 1;
         default:
-            printf ("parse failed");
+            printf ("parse failed\n");
             break;
             }
         }
@@ -229,8 +264,10 @@ void getExp (int numExp){
      char temp[80];
      printf ("Please input your expression now\n");
      scanf ("%s", &temp);
-     if (numExp < MAX_EXP)
-        parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp (#elements of array +1)
+}while (! parse(temp, numExp) && (numExp < MAX_EXP));//parses string into THE SLOT DEFINED BY numExp
+=======
+        parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp
+>>>>>>> parent of b7d3185... Parse works better
 }
 //__________________________________________________________________End User Input____________________________________________________________
 
@@ -442,7 +479,11 @@ Menu_Option menu() {
     menuPrint();
     do {
         printf ("Input the number of your choice\n");
+<<<<<<< HEAD
         scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)   ...USE CIN THO -Wilson
+=======
+        scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)
+>>>>>>> parent of b7d3185... Parse works better
         printf ("check\n");
         userInput = atoi (temp);
         printf ("check\n");
