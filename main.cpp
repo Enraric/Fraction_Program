@@ -15,7 +15,7 @@ Sort by operator then by answer --- Alex McMorine III
 #include <string.h>
 #include <time.h>
 #define MAX_EXP 30
-#include "iostream"
+#include <iostream>
 
 
 int rb (int min, int max) {
@@ -26,7 +26,7 @@ int getNum (int min, int max){ // Thing Wilson likes to have to get a number bet
 	int num = 0;
 
 	std::cin >> num;
-	while (num< min || num > max){
+	while (num < min || num > max){
 		std::cin >> num;
 	}
 }
@@ -298,14 +298,11 @@ void randExps (){
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
 bool validInt (char character){
-if (character >= 48 && character <= 57)
-    return 1;
-else
-    return 0;
+    return (character >= 48 && character <= 57);
 }
 
-bool validOperator (char string){
-    return ((string) == '+' || (string) == '-' || (string) == '/' || (string) == '*' );
+bool validOperator (char str){
+    return ((str) == '+' || (str) == '-' || (str) == '/' || (str) == '*' );
 }
 
 Sign signSwap(Sign sign){//The naming is strong with this one
@@ -316,32 +313,31 @@ Sign signSwap(Sign sign){//The naming is strong with this one
     return sign;
 }
 
-int parse (char string[80], int expNum){
+int parse (char str[80], int expNum){
     int SScount = 0;
     int partition = 0;
     char temp [80] = {""};
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
-    for (int i = 0; string[i] != 0; i++){
-        printf ("%i\t%c\t%i\n", i, string[i], partition);
+    for (int i = 0; str[i] != 0; i++){
+        printf ("%i\t%c\t%i\n", i, str[i], partition);
         switch (partition){
         case 0:
              //finds beginning of expression
-            if (string[i] == '(')
+            if (str[i] == '(')
                 partition ++;
             break;
         case 1:
              //finds any negative signs, each one switches the current sign
             //also takes all digits until the slash or bracket
-            //does not handle spaces
-            //could certainly replace with function if enough time
-            if (string[i] == '-')
+            //replace with function if time allows
+            if (str[i] == '-')
                 exps[expNum].num1.sign = signSwap (exps[expNum].num1.sign);
-            else if (validInt (string [i])){
-                temp[SScount] = string[i];
+            else if (validInt (str [i])){
+                temp[SScount] = str[i];
                 SScount ++;
             }
-            else if (string[i] == '/'){
+            else if (str[i] == '/'){
                 temp [SScount+1] = 0;
                 exps[expNum].num1.num = atoi (temp);
                 SScount=0;
@@ -349,13 +345,13 @@ int parse (char string[80], int expNum){
             }
                 break;
         case 2:
-            if (string[i] == '-')
+            if (str[i] == '-')
                 exps[expNum].num1.sign = signSwap (exps[expNum].num1.sign);
-            else if (validInt (string [i])){
-                temp[SScount] = string[i];
+            else if (validInt (str [i])){
+                temp[SScount] = str[i];
                 SScount ++;
             }
-            else if (string[i] == ')'){
+            else if (str[i] == ')'){
                 temp [SScount+1] = 0;
                 exps[expNum].num1.denom = atoi (temp);
                 SScount=0;
@@ -364,23 +360,23 @@ int parse (char string[80], int expNum){
                 break;
         case 3:
              //Assigns operator type
-            if (string [i] == '+' || string [i] == '-' || string [i] == '/' || string [i] == '*')
-                //exps[expNum].op = string[i];  NEEDS FIXING (How are we storing the enum type of operator? what do we need it to do?)
+            if (str [i] == '+' || str [i] == '-' || str [i] == '/' || str [i] == '*')
+                //exps[expNum].op = str[i];  NEEDS FIXING (How are we storing the enum type of operator? what do we need it to do?)
                 partition ++;
             break;
         case 4:
              //detects start of second fraction
-            if (string [i] == '(')
+            if (str [i] == '(')
                 partition ++;
                 break;
         case 5:
-            if (string[i] == '-')
+            if (str[i] == '-')
                 exps[expNum].num2.sign = signSwap (exps[expNum].num2.sign);
-            else if (validInt (string [i])){
-                temp[SScount] = string[i];
+            else if (validInt (str [i])){
+                temp[SScount] = str[i];
                 SScount ++;
             }
-            else if (string[i] == '/'){
+            else if (str[i] == '/'){
                 temp [SScount+1] = 0;
                 exps[expNum].num2.num = atoi (temp);
                 SScount=0;
@@ -388,13 +384,13 @@ int parse (char string[80], int expNum){
             }
                 break;
         case 6:
-            if (string[i] == '-')
+            if (str[i] == '-')
                 exps[expNum].num2.sign = signSwap (exps[expNum].num2.sign);
-            else if (validInt (string [i])){
-                temp[SScount] = string[i];
+            else if (validInt (str [i])){
+                temp[SScount] = str[i];
                 SScount ++;
             }
-            else if (string[i] == ')'){
+            else if (str[i] == ')'){
                 temp [SScount+1] = 0;
                 exps[expNum].num2.denom = atoi (temp);
                 SScount=0;
@@ -405,7 +401,7 @@ int parse (char string[80], int expNum){
             break;
         }
     }
-    if (partition == 7){
+    if (partition >= 7){
         printf ("parse complete\n\n");
         return 1;
     }
@@ -417,12 +413,17 @@ int parse (char string[80], int expNum){
 //_______________________________________________________________END PARSING SECTION__________________________________________________________
 
 //_________________________________________________________________Begin User Input___________________________________________________________
+void clear (){
+  while ( getchar() != '\n' );
+}
+
 void getExp (int numExp){
     char temp[80];
-    do{
-    printf ("Please input your expression now\n");
-    scanf ("%s", &temp);
-    }while (! parse(temp, numExp) && (numExp < MAX_EXP));//parses string into THE SLOT DEFINED BY numExp
+    clear();
+    do {
+        printf ("Please input your expression now\n");
+        gets(temp);
+    } while (!parse(temp, numExp) && (numExp < MAX_EXP));//parses string into THE SLOT DEFINED BY numExp
     putExpAns ();
 }
 //__________________________________________________________________End User Input____________________________________________________________
