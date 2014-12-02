@@ -15,6 +15,7 @@ Sort by operator then by answer --- Alex McMorine III
 #include <string.h>
 #include <time.h>
 #define MAX_EXP 30
+#include <iostream>
 
 
 int rb (int min, int max) {
@@ -169,8 +170,7 @@ int parse (char str[80], int expNum){
         case 1:
              //finds any negative signs, each one switches the current sign
             //also takes all digits until the slash or bracket
-            //does not handle spaces
-            //could certainly replace with function if enough time
+            //replace with function if time allows
             if (str[i] == '-')
                 exps[expNum].num1.sign = signSwap (exps[expNum].num1.sign);
             else if (validInt (str [i])){
@@ -253,12 +253,17 @@ int parse (char str[80], int expNum){
 //_______________________________________________________________END PARSING SECTION__________________________________________________________
 
 //_________________________________________________________________Begin User Input___________________________________________________________
+void clear (){
+  while ( getchar() != '\n' );
+}
+
 void getExp (int numExp){
     char temp[80];
+    clear();
     do {
         printf ("Please input your expression now\n");
-        gets()
-    } while (! parse(temp, numExp) && (numExp < MAX_EXP));//parses string into THE SLOT DEFINED BY numExp
+        gets(temp);
+    } while (!parse(temp, numExp) && (numExp < MAX_EXP));//parses string into THE SLOT DEFINED BY numExp
     putExpAns ();
 }
 //__________________________________________________________________End User Input____________________________________________________________
