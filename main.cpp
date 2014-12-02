@@ -24,7 +24,7 @@ int rb (int min, int max) {
 
 int getNum (int min, int max){ // Thing Wilson likes to have to get a number between a min and max value. Could be useful.
 	int num = 0;
-		
+
 	std::cin >> num;
 	while (num< min || num > max){
 		std::cin >> num;
@@ -115,10 +115,6 @@ void randExps (){
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
 bool validInt (char string){
-<<<<<<< HEAD
-=======
-    printf ("entered validint\n");
->>>>>>> parent of b7d3185... Parse works better
 if (string >= 48 && string <= 57)
     return 1;
 else
@@ -138,17 +134,13 @@ Sign signSwap(Sign sign){//The naming is strong with this one
 }
 
 int parse (char string[80], int expNum){
-<<<<<<< HEAD
-    printf ("entered parse");
-=======
-    printf ("entered parse\n");
     printf ("%s",string);
->>>>>>> parent of b7d3185... Parse works better
-    int SScount, partition = 0;
+    int SScount = 0;
+    int partition = 0;
     char temp [80];
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
-    for (int i = 0; string[i] != 0+1; i++){
+    for (int i = 0; (string[i] != 0)+1; i++){
         printf ("\t%i\n",partition);
         switch (partition){
         case 0:
@@ -163,15 +155,9 @@ int parse (char string[80], int expNum){
             partition ++;
             break;
         case 2:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
-<<<<<<< HEAD
-=======
-             printf ("entered case 2\n");
->>>>>>> parent of b7d3185... Parse works better
+             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: or / or )
             if (validInt (string [i])){
-                printf ("entered if\n");
                 temp[SScount] = string[i];
-                printf ("added success\n");
                 SScount ++;
             }
             else if (string[i] == '/'){
@@ -252,7 +238,6 @@ int parse (char string[80], int expNum){
         default:
             printf ("parse failed\n");
             break;
-            }
         }
     }
 }
@@ -260,14 +245,11 @@ int parse (char string[80], int expNum){
 
 //_________________________________________________________________Begin User Input___________________________________________________________
 void getExp (int numExp){
-    printf ("entered getExp");//bugcheck line
-     char temp[80];
-     printf ("Please input your expression now\n");
-     scanf ("%s", &temp);
-}while (! parse(temp, numExp) && (numExp < MAX_EXP));//parses string into THE SLOT DEFINED BY numExp
-=======
-        parse (temp, numExp);//parses string into THE SLOT DEFINED BY numExp
->>>>>>> parent of b7d3185... Parse works better
+    char temp[80];
+    do{
+    printf ("Please input your expression now\n");
+    scanf ("%s", &temp);
+    }while (! parse(temp, numExp) && (numExp < MAX_EXP));//parses string into THE SLOT DEFINED BY numExp
 }
 //__________________________________________________________________End User Input____________________________________________________________
 
@@ -402,9 +384,9 @@ void mathHandler(){
 }
 
 // Wilson's shitty output expn. with answer function....
-void putExpAns (){	
+void putExpAns (){
 	int index = 0;
-	
+
 	printf ("Input which # expression you would like to output (0-29). \n");
 	getNum (0,29);
 	// it's only the first thing for now, but I want to push the thing before we leave.
@@ -417,7 +399,7 @@ void putExpAns (){
 	printf (" %c ",exps[index].op);
 	printf ("(%c%i/%i)", exps[index].num2.sign, exps[index].num2.num, exps[index].num2.denom);
 	printf (" = (%c%i/%i)", exps[index].ans.sign, exps[index].ans.num, exps[index].ans.denom);
-	
+
 }
 
 
@@ -479,23 +461,16 @@ Menu_Option menu() {
     menuPrint();
     do {
         printf ("Input the number of your choice\n");
-<<<<<<< HEAD
         scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)   ...USE CIN THO -Wilson
-=======
-        scanf ("%s",&temp); //IT WAS THE GETS THAT WAS GIVING US CRAP, DON'T KNOW WHY SCANF FIXED BUT IT DID (DON'T COMPLAIN)
->>>>>>> parent of b7d3185... Parse works better
-        printf ("check\n");
         userInput = atoi (temp);
-        printf ("check\n");
     } while (!inputCheck (userInput));
-    printf ("check\n");
     return (Menu_Option) userInput;
 }
 
 
 //Main//////////////////////////////////////////////////////
 int main() {
-	srand (time(NULL))
+	srand (time(NULL));
     Menu_Option menuchoice = menu();
     handling (menuchoice);
 }
