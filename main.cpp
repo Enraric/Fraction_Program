@@ -64,7 +64,7 @@ void putExpAns (){
 	int index = 0;
 
 	printf ("Input which # expression you would like to output (0-29). \n");
-	getNum (0,29);
+	getNum (0,MAX_EXP);
 	// it's only the first thing for now, but I want to push the thing before we leave.
 	printf ("\n(%c%i/%i)", exps[index].num1.sign, exps[index].num1.num, exps[index].num1.denom);
 	/*printf ("%c",exps[index].num1.sign);
@@ -98,10 +98,13 @@ void opSort (){
     }
 }
 
+/*
+ARE WE EVEN USING THIS???
 
 int gcd(int x, int y) {
     return (y != 0) ? gcd(y, x % y) : x;
 }
+*/
 
 //-----------------------------------------------RAND STUFF------------------------------------------------
 
@@ -134,8 +137,8 @@ void randExps (){
 
 //______________________________________________________________BEGIN PARSE SECTION___________________________________________________________
 
-bool validInt (char string){
-if (string >= 48 && string <= 57)
+bool validInt (char character){
+if (character >= 48 && character <= 57)
     return 1;
 else
     return 0;
@@ -156,7 +159,7 @@ Sign signSwap(Sign sign){//The naming is strong with this one
 int parse (char string[80], int expNum){
     int SScount = 0;
     int partition = 0;
-    char temp [80];
+    char temp [80] = {""};
     //attempting to handle format of ( - # ) OP ( - # ), with spaces between anything
     //walks through array, looking for a different sentinels
     for (int i = 0; string[i] != 0; i++){
@@ -171,17 +174,20 @@ int parse (char string[80], int expNum){
              //finds a negative sign before first number, if any
             if (string[i] == '-' && !validInt(string[i]))
                 exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
+            else
+                i--;
             partition ++;
             break;
         case 2:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: or / or )
+             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel:    / or )
             if (validInt (string [i])){
                 temp[SScount] = string[i];
                 SScount ++;
             }
             else if (string[i] == '/'){
+                temp [SScount+1] = 0;
                 exps[expNum].num1.num = atoi (temp);
-                temp[SScount] = 0;
+                SScount=0;
                 partition ++;
             }
             break;
@@ -189,6 +195,8 @@ int parse (char string[80], int expNum){
              //detects negative sign of first number's denominator
             if (string[i] == '-' && !validInt(string[i]))
                 exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
+            else
+                i--;
             partition ++;
             break;
         case 4:
@@ -198,6 +206,7 @@ int parse (char string[80], int expNum){
                 SScount ++;
             }
             else if (string[i] == ')'){
+                temp [SScount+1] = 0;
                 exps[expNum].num1.denom = atoi (temp);
                 SScount = 0;
                 partition ++;
@@ -218,6 +227,8 @@ int parse (char string[80], int expNum){
              //detects sign of second fraction, numerator
             if (string[i] == '-' && !validInt(string[i]))
                 exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
+            else
+                i--;
             partition ++;
             break;
         case 8:
@@ -227,6 +238,7 @@ int parse (char string[80], int expNum){
                 SScount ++;
             }
             else if (string[i] == '/'){
+                temp [SScount+1] = 0;
                 exps[expNum].num2.num = atoi (temp);
                 SScount = 0;
                 partition ++;
@@ -236,6 +248,8 @@ int parse (char string[80], int expNum){
              //detects sign fraction 2, denom
             if (string[i] == '-' && !validInt(string[i]))
                 exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
+            else
+                i--;
             partition ++;
             break;
         case 10:
@@ -245,6 +259,7 @@ int parse (char string[80], int expNum){
                 SScount ++;
             }
             else if (string[i] == ')'){
+                temp [SScount+1] = 0;
                 exps[expNum].num2.denom = atoi (temp);
                 SScount = 0;
                 partition ++;
@@ -255,11 +270,11 @@ int parse (char string[80], int expNum){
         }
     }
     if (partition == 11){
-        printf ("parse complete\n");
+        printf ("parse complete\n\n");
         return 1;
     }
     else{
-        printf ("Parse Failed");
+        printf ("Parse Failed\n");
         return 0;
     }
 }
