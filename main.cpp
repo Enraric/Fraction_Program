@@ -58,6 +58,26 @@ enum Menu_Option {OUTPUT = 0, GETEXP = 1, SORT_ANSWER = 2, SORT_OPERATOR = 3, DE
 bool inputCheck(int userInput) {
     return (0 <= userInput && userInput <= MENU_MAX) ? 1 : 0; //It's a compact if/else, dude. Not magic at all.
 }
+
+// Wilson's shitty output expn. with answer function....
+void putExpAns (){
+	int index = 0;
+
+	printf ("Input which # expression you would like to output (0-29). \n");
+	getNum (0,29);
+	// it's only the first thing for now, but I want to push the thing before we leave.
+	printf ("\n(%c%i/%i)", exps[index].num1.sign, exps[index].num1.num, exps[index].num1.denom);
+	/*printf ("%c",exps[index].num1.sign);
+	printf ("%i",exps[index].num1.num);
+	printf ("/");
+	printf ("%i",exps[index].num1.denom);
+	printf (")"); */
+	printf (" %c ",exps[index].op);
+	printf ("(%c%i/%i)", exps[index].num2.sign, exps[index].num2.num, exps[index].num2.denom);
+	printf (" = (%c%i/%i)", exps[index].ans.sign, exps[index].ans.num, exps[index].ans.denom);
+
+}
+
 //-------------------------------------------Sorting by Operator-------------------------------------------
 
 void opSort (){
@@ -149,7 +169,7 @@ int parse (char string[80], int expNum){
             break;
         case 1:
              //finds a negative sign before first number, if any
-            if (string[i] == '-')
+            if (string[i] == '-' && !validInt(string[i]))
                 exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
             partition ++;
             break;
@@ -167,7 +187,7 @@ int parse (char string[80], int expNum){
             break;
         case 3:
              //detects negative sign of first number's denominator
-            if (string[i] == '-')
+            if (string[i] == '-' && !validInt(string[i]))
                 exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
             partition ++;
             break;
@@ -196,7 +216,7 @@ int parse (char string[80], int expNum){
                 break;
         case 7:
              //detects sign of second fraction, numerator
-            if (string[i] == '-')
+            if (string[i] == '-' && !validInt(string[i]))
                 exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
             partition ++;
             break;
@@ -214,7 +234,7 @@ int parse (char string[80], int expNum){
             break;
         case 9:
              //detects sign fraction 2, denom
-            if (string[i] == '-')
+            if (string[i] == '-' && !validInt(string[i]))
                 exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
             partition ++;
             break;
@@ -234,7 +254,6 @@ int parse (char string[80], int expNum){
             break;
         }
     }
-    printf ("\n\n%i\n\n", partition);
     if (partition == 11){
         printf ("parse complete\n");
         return 1;
@@ -253,6 +272,7 @@ void getExp (int numExp){
     printf ("Please input your expression now\n");
     scanf ("%s", &temp);
     }while (! parse(temp, numExp) && (numExp < MAX_EXP));//parses string into THE SLOT DEFINED BY numExp
+    putExpAns ();
 }
 //__________________________________________________________________End User Input____________________________________________________________
 
@@ -385,27 +405,6 @@ void mathHandler(){
         mathStuff(i);
     }
 }
-
-// Wilson's shitty output expn. with answer function....
-void putExpAns (){
-	int index = 0;
-
-	printf ("Input which # expression you would like to output (0-29). \n");
-	getNum (0,29);
-	// it's only the first thing for now, but I want to push the thing before we leave.
-	printf ("\n(%c%i/%i)", exps[index].num1.sign, exps[index].num1.num, exps[index].num1.denom);
-	/*printf ("%c",exps[index].num1.sign);
-	printf ("%i",exps[index].num1.num);
-	printf ("/");
-	printf ("%i",exps[index].num1.denom);
-	printf (")"); */
-	printf (" %c ",exps[index].op);
-	printf ("(%c%i/%i)", exps[index].num2.sign, exps[index].num2.num, exps[index].num2.denom);
-	printf (" = (%c%i/%i)", exps[index].ans.sign, exps[index].ans.num, exps[index].ans.denom);
-
-}
-
-
 
 //Handling the menu options//////////////////////////////////////////////////////
 void handling (Menu_Option a){
