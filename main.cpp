@@ -372,6 +372,7 @@ void putExpAns (){
 	
 	printf ("Input which # expression you would like to output (0-29). \n");
 	index = getNum (0,29);
+	mathStuff (index);
 	// it's only the first thing for now, but I want to push the thing before we leave.
 	printf ("\n(%c%i/%i)", exps[index].num1.sign, exps[index].num1.num, exps[index].num1.denom);
 	/*printf ("%c",exps[index].num1.sign);
