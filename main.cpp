@@ -124,11 +124,11 @@ void randExps (){
     for (int i = 0; i < numExps; i++){
         exps[i].num1.num = rb (0,99);
         exps[i].num1.denom = rb (0,99);
-        exps[i].num1.sign = rb (0,1);
+        exps[i].num1.sign = (Sign) rb (0,1);
         exps[i].num2.num = rb (0,99);
         exps[i].num2.denom = rb (0,99);
-        exps[i].num2.sign = rb (0,1);
-        exps[i].op = rb (0,3);
+        exps[i].num2.sign = (Sign) rb (0,1);
+        exps[i].op = (Operat) rb (0,3);
     }
 
 }
