@@ -463,7 +463,9 @@ Menu_Option menu() {
 
 //Main//////////////////////////////////////////////////////
 int main() {
-	srand (time(NULL));
-    Menu_Option menuchoice = menu();
-    handling (menuchoice);
+    do{
+        srand (time(NULL));
+        Menu_Option menuchoice = menu();
+        handling (menuchoice);
+    }while (menuchoice != QUIT);
 }
