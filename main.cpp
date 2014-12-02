@@ -32,8 +32,8 @@ int getNum (int min, int max){ // Thing Wilson likes to have to get a number bet
 }
 
 //Custom types/////////////////////////////////////////////////////
-enum Operat {ADD, SUB, MULT, DIV};
-enum Sign {POS, NEG};
+enum Operat {ADD, SUB, MULT, DIV, NONE};
+enum Sign {POS, NEG, NOONE}; // Why can't I use none twice
 
 struct Fraction {
        Sign sign;
@@ -192,11 +192,12 @@ void mathHandler(){
 
 
 // Wilson's shitty output expn. with answer function....
-void putExpAns (){
+void putExpAns (){	
 	int index = 0;
-
+	
 	printf ("Input which # expression you would like to output (0-29). \n");
-	getNum (0,MAX_EXP);
+	index = getNum (0,29);
+	mathStuff (index);
 	// it's only the first thing for now, but I want to push the thing before we leave.
 	printf ("\n(%c%i/%i)", exps[index].num1.sign, exps[index].num1.num, exps[index].num1.denom);
 	/*printf ("%c",exps[index].num1.sign);
@@ -207,6 +208,32 @@ void putExpAns (){
 	printf (" %c ",exps[index].op);
 	printf ("(%c%i/%i)", exps[index].num2.sign, exps[index].num2.num, exps[index].num2.denom);
 	printf (" = (%c%i/%i)", exps[index].ans.sign, exps[index].ans.num, exps[index].ans.denom);
+	
+}
+
+void deleteExp (){ // Wilson's deleteExp stuff.. I should really be using a constant for 29, but saying MAX EXP -1 is confusing...
+	int index = 0;
+	
+	printf ("Input which # expression you would like to delete (0-29). \n");
+	index = getNum (0,29);
+	
+	// Fun fact: This code is only here because my for loop doesn't work if they input 29.
+	exps[index].num1.num = 0;
+	exps[index].num1.denom = 0;
+	exps[index].num2.num = 0;
+	exps[index].num2.denom = 0;
+	exps[index].ans.num = 0;
+	exps[index].ans.denom = 0;
+	exps[index].op = NONE; // Pls tell me this counts as the null character.
+	
+	for (int i = index;i<= 28;i++){
+		exps[i].num1.num = exps[i+1].num1.num;
+		exps[i].num1.denom = exps[i+1].num1.denom;
+		exps[i].num2.num = exps[i+1].num2.num;
+		exps[i].num2.denom = exps[i+1].num2.denom;
+		exps[i].ans.num = exps[i+1].ans.num;
+		exps[i].ans.denom = exps[i+1].ans.denom;
+	}
 
 }
 
@@ -424,6 +451,7 @@ void handling (Menu_Option a){
 
         case DELETE:
             // Code
+            deleteExp ();
         break;
 
         case GENERATE:
