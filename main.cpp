@@ -122,13 +122,13 @@ void randExps (){
     numExp == numExps;
 
     for (int i = 0; i < numExps; i++){
-        exps[i].num1.num == rb (0,99);
-        exps[i].num1.denom == rb (0,99);
-        exps[i].num1.sign == rb (0,1);
-        exps[i].num2.num == rb (0,99);
-        exps[i].num2.denom == rb (0,99);
-        exps[i].num2.sign == rb (0,2);
-        exps[i].op == rb (0,3);
+        exps[i].num1.num = rb (0,99);
+        exps[i].num1.denom = rb (0,99);
+        exps[i].num1.sign = rb (0,1);
+        exps[i].num2.num = rb (0,99);
+        exps[i].num2.denom = rb (0,99);
+        exps[i].num2.sign = rb (0,1);
+        exps[i].op = rb (0,3);
     }
 
 }
