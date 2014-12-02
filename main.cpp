@@ -171,16 +171,13 @@ int parse (char string[80], int expNum){
                 partition ++;
             break;
         case 1:
-             //finds a negative sign before first number, if any
-            if (string[i] == '-' && !validInt(string[i]))
-                exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
-            else
-                i--;
-            partition ++;
-            break;
-        case 2:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel:    / or )
-            if (validInt (string [i])){
+             //finds any negative signs, each one switches the current sign
+            //also takes all digits until the slash or bracket
+            //does not handle spaces
+            //could certainly replace with function if enough time
+            if (string[i] == '-')
+                exps[expNum].num1.sign = signSwap (exps[expNum].num1.sign);
+            else if (validInt (string [i])){
                 temp[SScount] = string[i];
                 SScount ++;
             }
@@ -190,86 +187,65 @@ int parse (char string[80], int expNum){
                 SScount=0;
                 partition ++;
             }
-            break;
-        case 3:
-             //detects negative sign of first number's denominator
-            if (string[i] == '-' && !validInt(string[i]))
-                exps[expNum].num1.sign == signSwap (exps[expNum].num1.sign);
-            else
-                i--;
-            partition ++;
-            break;
-        case 4:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
-            if (validInt (string[i])){
+                break;
+        case 2:
+            if (string[i] == '-')
+                exps[expNum].num1.sign = signSwap (exps[expNum].num1.sign);
+            else if (validInt (string [i])){
                 temp[SScount] = string[i];
                 SScount ++;
             }
             else if (string[i] == ')'){
                 temp [SScount+1] = 0;
                 exps[expNum].num1.denom = atoi (temp);
-                SScount = 0;
+                SScount=0;
                 partition ++;
             }
-            break;
-        case 5:
+                break;
+        case 3:
              //Assigns operator type
             if (string [i] == '+' || string [i] == '-' || string [i] == '/' || string [i] == '*')
                 //exps[expNum].op = string[i];  NEEDS FIXING (How are we storing the enum type of operator? what do we need it to do?)
                 partition ++;
             break;
-        case 6:
+        case 4:
              //detects start of second fraction
             if (string [i] == '(')
                 partition ++;
                 break;
-        case 7:
-             //detects sign of second fraction, numerator
-            if (string[i] == '-' && !validInt(string[i]))
-                exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
-            else
-                i--;
-            partition ++;
-            break;
-        case 8:
-             ////adds ANY integer characters into a temporary string, uses atoi once reaches sentinel:      / or )
-            if (validInt (string[i])){
+        case 5:
+            if (string[i] == '-')
+                exps[expNum].num2.sign = signSwap (exps[expNum].num2.sign);
+            else if (validInt (string [i])){
                 temp[SScount] = string[i];
                 SScount ++;
             }
             else if (string[i] == '/'){
                 temp [SScount+1] = 0;
                 exps[expNum].num2.num = atoi (temp);
-                SScount = 0;
+                SScount=0;
                 partition ++;
             }
-            break;
-        case 9:
-             //detects sign fraction 2, denom
-            if (string[i] == '-' && !validInt(string[i]))
-                exps[expNum].num2.sign == signSwap (exps[expNum].num2.sign);
-            else
-                i--;
-            partition ++;
-            break;
-        case 10:
-             //adds ANY integer characters into a temporary string, uses atoi once reaches sentinel: ( or / or )
-            if (validInt (string[i])){
+                break;
+        case 6:
+            if (string[i] == '-')
+                exps[expNum].num2.sign = signSwap (exps[expNum].num2.sign);
+            else if (validInt (string [i])){
                 temp[SScount] = string[i];
                 SScount ++;
             }
             else if (string[i] == ')'){
                 temp [SScount+1] = 0;
                 exps[expNum].num2.denom = atoi (temp);
-                SScount = 0;
+                SScount=0;
                 partition ++;
             }
-            break;
+                break;
         default:
             break;
         }
     }
-    if (partition == 11){
+    if (partition == 7){
         printf ("parse complete\n\n");
         return 1;
     }
